@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Safety Quiz</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #818cf8;
+      --secondary: #10b981;
+      --danger: #ef4444;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --animation-duration: 0.4s;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e0eafc 100%);
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--dark);
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 800px;
+      padding: 32px 24px;
+      background: var(--light);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  box-shadow 0.3s ease;
+    }
+    
+    .container:hover {
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    }
+    
+    .progress-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--bg-gradient);
+      width: 0;
+      transition: width 0.5s ease;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.5rem 0 1rem;
+      background: var(--bg-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: var(--gray);
+    }
+    
+    .question-image {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      transform: scale(1);
+      transition: transform var(--animation-duration) ease-out;
+      object-fit: contain;
+    }
+    
+    .question-image:hover {
+      transform: scale(1.01);
+    }
+    
+    .question {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .question::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+    
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 25px;
+    }
+    
+    .answers button {
+      display: block;
+      width: 100%;
+      padding: 14px 18px;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      background-color: #f8fafc;
+      color: var(--dark);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .answers button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: rgba(79, 70, 229, 0.1);
+      transition: width 0.3s ease;
+      z-index: 0;
+    }
+    
+    .answers button:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .answers button:hover::before {
+      width: 100%;
+    }
+    
+    .answers button:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    .answers button span {
+      position: relative;
+      z-index: 1;
+      padding-right: 24px; /* Space for checkmark */
+    }
+    
+    @keyframes correctAnswer {
+      0% { background-color: #f8fafc; }
+      30% { background-color: rgba(16, 185, 129, 0.1); }
+      100% { background-color: rgba(16, 185, 129, 0.2); }
+    }
+    
+    @keyframes incorrectAnswer {
+      0% { background-color: #f8fafc; }
+      30% { background-color: rgba(239, 68, 68, 0.1); }
+      100% { background-color: rgba(239, 68, 68, 0.2); }
+    }
+    
+    .answers button.selected.correct {
+      background-color: rgba(16, 185, 129, 0.2);
+      border-color: var(--secondary);
+      animation: correctAnswer 0.6s ease forwards;
+    }
+    
+    .answers button.selected.incorrect {
+      background-color: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+      animation: incorrectAnswer 0.6s ease forwards;
+    }
+    
+    .answers button.correct-answer {
+      position: relative;
+    }
+    
+    .checkmark {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--secondary);
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 5;
+    }
+    
+    .answers button.correct-answer .checkmark {
+      opacity: 1;
+      z-index: 2;
+    }
+    
+    .feedback {
+      display: none;
+      margin-top: 24px;
+      padding: 16px;
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--primary);
+      text-align: left;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    
+    .feedback.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+      z-index: -1;
+    }
+    
+    .btn:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .show-feedback {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary-light);
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      margin-right: 0;
+      font-weight: normal;
+      position: relative;
+      top: -5px;
+    }
+    
+    .show-feedback:hover {
+      background: rgba(79, 70, 229, 0.05);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+    
+    .next-btn {
+      background: var(--bg-gradient);
+      color: white;
+      padding: 14px 28px;
+      font-weight: 600;
+      margin-top: 25px;
+      min-width: 180px;
+    }
+    
+    .next-btn:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .start-btn {
+      margin-top: 24px;
+      background: var(--bg-gradient);
+      color: white;
+      box-shadow: var(--shadow-md);
+      padding: 16px 36px;
+      font-size: 0.9rem;
+    }
+    
+    .start-btn:hover {
+      box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4), 0 4px 6px -2px rgba(79, 70, 229, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    .start-btn:active {
+      transform: translateY(-1px);
+    }
+    
+    .score-container {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: 12px;
+      padding: 24px 16px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .circle-progress-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 10px auto 20px;
+    }
+    
+    .circle-progress-outer {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      padding: 20px;
+      box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+                  -6px -6px 10px -1px rgba(255,255,255,0.7);
+    }
+    
+    .circle-progress-inner {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
+                  inset -4px -4px 6px -1px rgba(255,255,255,0.7),
+                  -0.5px -0.5px 0px rgba(255,255,255,1),
+                  0.5px 0.5px 0px rgba(0,0,0,0.15),
+                  0px 12px 10px -10px rgba(0,0,0,0.05);
+    }
+    
+    .circle-progress-number {
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .percent {
+      font-size: 2.5rem;
+    }
+    
+    .score-text {
+      font-size: 1rem;
+      margin-top: 5px;
+      color: var(--gray);
+    }
+    
+    .circle-progress-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      transform: rotate(-90deg);
+    }
+    
+    .circle-bg {
+      fill: none;
+      stroke: #f0f0f0;
+      stroke-width: 20px;
+    }
+    
+    .circle-progress {
+      fill: none;
+      stroke-width: 20px;
+      stroke-dasharray: 503; /* 2 * PI * 80 (circle radius) */
+      stroke-dashoffset: 503;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease-in-out;
+    }
+    
+    .excellent-score {
+      stroke: #10b981; /* Green for high scores */
+    }
+    
+    .good-score {
+      stroke: #f59e0b; /* Amber for medium scores */
+    }
+    
+    .needs-improvement-score {
+      stroke: #ef4444; /* Red for low scores */
+    }
+    
+    .score-details {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .score-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+      font-weight: 500;
+    }
+    
+    .score-detail-icon {
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+    
+    @keyframes countUp {
+      from { content: "0%"; }
+      to { content: attr(data-target); }
+    }
+    
+    .user-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .quiz-info {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0 16px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .difficulty-badges {
+      display: flex;
+      gap: 4px;
+    }
+    
+    .difficulty-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #e2e8f0;
+    }
+    
+    .difficulty-badge.active {
+      background-color: var(--primary);
+    }
+    
+    /* Question transition animations */
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-50px); opacity: 0; }
+    }
+    
+    .question-enter {
+      animation: slideInRight 0.5s forwards;
+    }
+    
+    .question-exit {
+      animation: slideOutLeft 0.3s forwards;
+    }
+    
+    /* Circle pulse animation for active question */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Reward animations */
+    @keyframes reward {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .reward-icon {
+      display: none; /* Hidden completely */
+    }
+    
+    .result-summary {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    
+    .summary-item {
+      flex: 1;
+      min-width: 120px;
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+    
+    .summary-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .summary-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    
+    .summary-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .summary-label {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+    
+    /* Tooltip styles */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--dark);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.85rem;
+      font-weight: normal;
+    }
+    
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--dark) transparent transparent transparent;
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    /* Media Queries */
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+      
+      .container {
+        padding: 24px 16px;
+        border-radius: 12px;
+      }
+      
+      h1 {
+        font-size: 1.6rem;
+      }
+      
+      h2 {
+        font-size: 1.4rem;
+      }
+      
+      .question {
+        font-size: 1.2rem;
+      }
+      
+      .answers button {
+        padding: 14px 12px;
+      }
+      
+      .next-btn {
+        width: 100%;
+        max-width: 240px;
+      }
+      
+      .show-feedback {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+    }
+    
+    @media screen and (max-width: 400px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+      
+      .question {
+        font-size: 1.1rem;
+      }
+      
+      .container {
+        padding: 20px 14px;
+      }
+    }
+
+    /* CSS for Detailed Answers */
+    .answer-details-container {
+      margin-top: 30px;
+    }
+
+    .dropdown-toggle {
+      background: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dropdown-toggle:hover {
+      background: var(--primary-dark);
+    }
+
+    .dropdown {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .dropdown-menu {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .dropdown-item {
+      background: #e2e8f0;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .dropdown-item.active,
+    .dropdown-item:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tab-content {
+      text-align: left;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .answer-detail {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+.chat-toggle {
+  display: flex;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-right: 10px;
+}
+
+.chat-label {
+  font-size: 14px;
+}
+
+.chat-box {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 250px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.chat-header {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.chat-body {
+  padding: 10px;
+  color: #333;
+}
+  </style>
+</head>
+<body>
+  <div class="container animate-fadeIn" id="start-screen">
+    <img src="img/Homepage-img.png" alt="Intro" class="question-image">
+    <h1>Can you spot when you're being phished?</h1>
+    <p>Think you can tell what's real or fake? Gauge your level knowledge of Cyber and Mobile Safety with this interactive quiz!</p>
+    <button class="btn start-btn" onclick="startQuiz()">
+      <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
+    </button>
+  </div>
+ 
+  <div class="container" id="quiz-container" style="display:none;">
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <!-- <div class="quiz-info">
+      <span>Cyber Safety Quiz</span>
+      <div class="difficulty-badges">
+        <div class="difficulty-badge active tooltip">
+          <span class="tooltip-text">Beginner level</span>
+        </div>
+        <div class="difficulty-badge active tooltip">
+          <span class="tooltip-text">Intermediate level</span>
+        </div>
+        <div class="difficulty-badge tooltip">
+          <span class="tooltip-text">Advanced level</span>
+        </div>
+      </div>
+    </div> -->
+    
+    <div class="question animate-fadeIn" id="question"></div>
+    <img id="question-image" class="question-image animate-fadeIn" style="display:none;">
+    <div class="answers" id="answers"></div>
+    
+    <div class="user-progress">
+      <span id="question-counter">Question 1 of 6</span>
+      <!-- <span id="time-counter">Time: 00:00</span> -->
+    </div>
+    
+    <div class="feedback" id="feedback"></div>
+    
+    <div class="button-container">
+      <button class="btn show-feedback" id="show-feedback" onclick="showFeedback()">
+        <i class="fas fa-lightbulb icon"></i>Show explanation
+      </button>
+      
+      <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">
+        <i class="fas fa-arrow-right icon"></i>Next Question
+      </button>
+    </div>
+  </div>
+ 
+  <script>
+    const questions = [
+      {
+        text: "Which of these emails is a phishing attempt?",
+        image: "email_comparison.png",
+        options: ["Email A", "Email B"],
+        correct: 1,
+        explanation: "Email B is a phishing attempt because it has several red flags: spelling errors, a suspicious sender address that doesn't match the company it claims to be from, urgency in the message, and requesting sensitive information. Always check for these signs when receiving unexpected emails."
+      },
+      {
+        text: "Which of these is the strongest password?",
+        image: "password_strength.png",
+        options: ["123456", "password", "QwErTy!78#"],
+        correct: 2,
+        explanation: "QwErTy!78# is the strongest password because it contains a mix of uppercase letters, lowercase letters, numbers, and special characters. This combination makes it much harder to crack through brute force attacks. Always use complex passwords and consider using a password manager."
+      },
+      {
+        text: "What should you do if you receive a suspicious email?",
+        options: [
+          "Click the links to verify if they're legitimate",
+          "Reply to ask if it's really them",
+          "Delete it and report it as phishing",
+          "Forward it to colleagues to get their opinion"
+        ],
+        correct: 2,
+        explanation: "The safest approach is to delete suspicious emails and report them as phishing. Never click links in suspicious emails as they may lead to malicious websites. Don't reply to suspected phishing emails or forward them to colleagues as this could spread the threat."
+      },
+      {
+        text: "Which of these is a secure website?",
+        image: "website_url_examples.png",
+        options: ["http://www.mybank.com", "https://www.mybank.com"],
+        correct: 1,
+        explanation: "The 'https://' prefix and the padlock icon indicate that a website is using encryption to secure your connection. This means the data you send and receive is protected from eavesdropping. Always check for these security indicators before entering any sensitive information on a website."
+      },
+      {
+        text: "Which of these practices best protects your accounts?",
+        options: [
+          "Using the same password for all accounts to remember it easily",
+          "Writing down passwords on sticky notes near your computer",
+          "Using two-factor authentication (2FA) whenever available",
+          "Sharing passwords with trusted colleagues for convenience"
+        ],
+        correct: 2,
+        explanation: "Two-factor authentication (2FA) adds an extra layer of security by requiring something you know (password) and something you have (like your phone). This means that even if your password is compromised, attackers still can't access your account without the second factor."
+      },
+      {
+        text: "Which of these is a sign of a suspicious link?",
+        options: [
+          "It comes from a known contact with a proper company email address",
+          "The URL has slight misspellings (like 'amaz0n.com' instead of 'amazon.com')",
+          "It directs to an HTTPS secured website",
+          "It was sent during normal business hours"
+        ],
+        correct: 1,
+        explanation: "Misspelled URLs (like 'amaz0n.com') are a common tactic used by scammers to trick you into visiting malicious websites. Always carefully check the spelling of URLs, especially when they involve numbers replacing letters or slightly altered domain names."
+      }
+    ];
+ 
+    let currentQuestion = 0;
+    let selectedAnswer = null;
+    let score = 0;
+    // let startTime;
+    let timerInterval;
+    let correctAnswerStreak = 0;
+    let wrongAnswers = [];
+    
+    // Check if the user is on a mobile device
+    const isMobile = window.matchMedia("(max-width: 600px)").matches;
+ 
+    function startQuiz() {
+      document.getElementById("start-screen").style.display = "none";
+      const quizContainer = document.getElementById("quiz-container");
+      quizContainer.style.display = "block";
+      quizContainer.classList.add("animate-fadeIn");
+      updateProgressBar();
+      updateQuestionCounter();
+      startTimer();
+      showQuestion();
+    }
+    
+    function startTimer() {
+      startTime = new Date();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+    
+    function updateTimer() {
+      const now = new Date();
+      const timeDiff = Math.floor((now - startTime) / 1000); // in seconds
+      const minutes = Math.floor(timeDiff / 60).toString().padStart(2, '0');
+      const seconds = (timeDiff % 60).toString().padStart(2, '0');
+      document.getElementById("time-counter").textContent = `Time: ${minutes}:${seconds}`;
+    }
+    
+    function stopTimer() {
+      clearInterval(timerInterval);
+      return Math.floor((new Date() - startTime) / 1000); // return total seconds
+    }
+    
+    function updateProgressBar() {
+      const progressPercentage = (currentQuestion / questions.length) * 100;
+      const progressBar = document.getElementById("progress-bar");
+      progressBar.style.width = `${progressPercentage}%`;
+    }
+    
+    function updateQuestionCounter() {
+      document.getElementById("question-counter").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    }
+ 
+    function showQuestion() {
+      const q = questions[currentQuestion];
+
+      // NEW: update avatar widget based on question
+      updateChatWidgetForQuestion(q);
+
+      const questionEl = document.getElementById("question");
+      questionEl.textContent = q.text;
+      questionEl.classList.remove("animate-fadeIn");
+      void questionEl.offsetWidth; // Force reflow
+      questionEl.classList.add("animate-fadeIn");
+      
+      const imageEl = document.getElementById("question-image");
+      if (q.image) {
+        imageEl.src = q.image;
+        imageEl.style.display = "block";
+        imageEl.alt = "Question image for: " + q.text;
+        imageEl.classList.remove("animate-fadeIn");
+        void imageEl.offsetWidth; // Force reflow
+        imageEl.classList.add("animate-fadeIn");
+      } else {
+        imageEl.style.display = "none";
+      }
+      
+      const answersContainer = document.getElementById("answers");
+      answersContainer.innerHTML = "";
+      
+      q.options.forEach((option, i) => {
+        const btn = document.createElement("button");
+        btn.innerHTML = `<span>${option}</span>`;
+        btn.style.animationDelay = `${i * 0.1}s`;
+        btn.classList.add("animate-slideIn");
+        btn.onclick = () => selectAnswer(i, btn);
+        answersContainer.appendChild(btn);
+      });
+      
+      const feedback = document.getElementById("feedback");
+      feedback.style.display = "none";
+      feedback.textContent = "";
+      feedback.classList.remove("show");
+      
+      document.getElementById("show-feedback").style.display = "none";
+      document.getElementById("next-btn").style.display = "none";
+      
+      // Scroll to top of question on mobile
+      if (isMobile) {
+        window.scrollTo(0, 0);
+      }
+    }
+ 
+    function selectAnswer(index, btn) {
+      if (selectedAnswer !== null) return;
+      
+      selectedAnswer = index;
+      questions[currentQuestion].userAnswer = index;
+      const correct = questions[currentQuestion].correct;
+      
+      // Update score and streak
+      if (index === correct) {
+        score++;
+        correctAnswerStreak++;
+      } else {
+        correctAnswerStreak = 0;
+        wrongAnswers.push(currentQuestion);
+      }
+      
+      // Mark buttons with appropriate classes
+      const buttons = document.querySelectorAll(".answers button");
+      buttons.forEach((b, i) => {
+        // Remove previous states
+        b.classList.remove("selected", "correct", "incorrect", "correct-answer");
+        
+        // Remove any existing checkmarks
+        const existingCheckmark = b.querySelector('.checkmark');
+        if (existingCheckmark) {
+          existingCheckmark.remove();
+        }
+        
+        // Mark the selected answer
+        if (i === index) {
+          b.classList.add("selected");
+          b.classList.add(index === correct ? "correct" : "incorrect");
+        }
+        
+        // Always add checkmark to the correct answer
+        if (i === correct) {
+          b.classList.add("correct-answer");
+          const checkmark = document.createElement('i');
+          checkmark.className = 'fas fa-check checkmark';
+          b.appendChild(checkmark);
+        }
+      });
+      
+      // Show both buttons
+      const showFeedbackBtn = document.getElementById("show-feedback");
+      const nextBtn = document.getElementById("next-btn");
+      
+      showFeedbackBtn.style.display = "inline-block";
+      showFeedbackBtn.classList.add("animate-fadeIn");
+      
+      nextBtn.style.display = "inline-block";
+      nextBtn.classList.add("animate-fadeIn");
+      
+      // On mobile, scroll to the buttons
+      if (isMobile) {
+        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+ 
+    function showFeedback() {
+      const q = questions[currentQuestion];
+      const feedback = document.getElementById("feedback");
+      feedback.textContent = q.explanation;
+      feedback.style.display = "block";
+      
+      // Trigger reflow before adding the show class for animation
+      void feedback.offsetWidth;
+      feedback.classList.add("show");
+      
+      // Hide the show explanation button since it's already shown
+      document.getElementById("show-feedback").style.display = "none";
+      
+      // On mobile, scroll to the feedback
+      if (isMobile) {
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+ 
+    function nextQuestion() {
+      selectedAnswer = null;
+      currentQuestion++;
+      updateProgressBar();
+      updateQuestionCounter();
+      
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        const totalTime = stopTimer();
+        showResults(totalTime);
+      }
+    }
+    
+    function createConfetti() {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+      
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+    
+    function showResults(totalTime) {
+      const quizContainer = document.getElementById("quiz-container");
+      const percentage = Math.round((score / questions.length) * 100);
+      
+      let resultMessage, resultIcon, scoreClass;
+      
+      if (percentage >= 80) {
+        resultMessage = "Excellent! You're a cyber security pro!";
+        resultIcon = "trophy";
+        scoreClass = "excellent-score";
+        createConfetti();
+      } else if (percentage >= 60) {
+        resultMessage = "Good job! You have solid cyber security knowledge.";
+        resultIcon = "shield-alt";
+        scoreClass = "good-score";
+      } else {
+        resultMessage = "Keep learning about cyber security to stay safe online.";
+        resultIcon = "book";
+        scoreClass = "needs-improvement-score";
+      }
+      
+      // Format time
+      const minutes = Math.floor(totalTime / 60);
+      const seconds = totalTime % 60;
+      const timeFormatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      // Calculate average time per question
+      const avgTimePerQuestion = Math.round(totalTime / questions.length);
+      
+      quizContainer.innerHTML = `
+        <h2 class="animate-fadeIn">Quiz Complete!</h2>
+        <div class="score-container animate-fadeIn">
+          <div class="circle-progress-container">
+            <div class="circle-progress-outer">
+              <div class="circle-progress-inner">
+                <div class="circle-progress-number">
+                  <span class="percent" id="percent-counter">0%</span>
+                  <span class="score-text">${score}/${questions.length} correct</span>
+                </div>
+              </div>
+            </div>
+            <svg class="circle-progress-svg">
+              <circle class="circle-bg" cx="100" cy="100" r="80"></circle>
+              <circle class="circle-progress ${scoreClass}" cx="100" cy="100" r="80" id="progress-circle"></circle>
+            </svg>
+          </div>
+        </div>
+        
+        <div id="performance-breakdown" class="animate-fadeIn"></div>
+        
+        <div class="answer-details-container animate-fadeIn">
+          <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <button class="btn dropdown-toggle" onclick="toggleAnswerTabsDropdown()">
+              <i class="fas fa-chevron-down icon"></i> Show Answer Details
+            </button>
+          </div>
+
+          <div id="answer-dropdown" class="dropdown hidden">
+            <div class="dropdown-menu">
+              <button class="dropdown-item active" onclick="showAnswerTab('correct')">Correct Answers</button>
+              <button class="dropdown-item" onclick="showAnswerTab('incorrect')">Incorrect Answers</button>
+            </div>
+            <div class="tab-content" id="correct-tab"></div>
+            <div class="tab-content hidden" id="incorrect-tab"></div>
+          </div>
+        </div>
+
+
+
+        <p class="animate-fadeIn">You've learned how to identify phishing attempts, create strong passwords, and practice good cyber security habits.</p>
+        
+        <button class="btn start-btn animate-fadeIn" onclick="location.reload()">
+          <i class="fas fa-redo icon"></i>Try Again
+        </button>
+      `;
+      
+      // Animate the circle progress
+      setTimeout(() => {
+        const circle = document.getElementById('progress-circle');
+        const dashoffset = 503 - (503 * percentage / 100);
+        circle.style.strokeDashoffset = dashoffset;
+        
+        // Animate the percentage counter
+        animateCounter('percent-counter', percentage);
+        
+        // Create performance breakdown
+        createPerformanceBreakdown();
+      }, 100);
+      
+      // On mobile, scroll to the top of results
+      if (isMobile) {
+        window.scrollTo(0, 0);
+      }
+    }
+    
+    function animateCounter(id, targetValue) {
+      const counter = document.getElementById(id);
+      let currentValue = 0;
+      const increment = targetValue > 50 ? 1 : 0.5;
+      const duration = 1500; // milliseconds
+      const steps = targetValue / increment;
+      const stepTime = duration / steps;
+      
+      const timer = setInterval(() => {
+        currentValue += increment;
+        
+        if (currentValue >= targetValue) {
+          clearInterval(timer);
+          counter.textContent = `${targetValue}%`;
+        } else {
+          counter.textContent = `${Math.floor(currentValue)}%`;
+        }
+      }, stepTime);
+    }
+    
+    function createPerformanceBreakdown() {
+      const container = document.getElementById('performance-breakdown');
+      
+      const strengthsAndTips = getPerformanceInsights();
+      
+      let html = `
+        <div class="feedback" style="display: block; margin-bottom: 20px; text-align: left;">
+          <h3 style="margin-bottom: 10px;"><i class="fas fa-lightbulb icon"></i>Performance Insights</h3>
+          <p>${strengthsAndTips}</p>
+        </div>
+      `;
+      
+      // Add certificate for high scores
+      // if (score >= questions.length * 0.8) {
+      //   const today = new Date();
+      //   const formattedDate = today.toLocaleDateString('en-US', { 
+      //     year: 'numeric', 
+      //     month: 'long', 
+      //     day: 'numeric' 
+      //   });
+        
+      //   html += `
+      //     <div class="certificate" id="certificate">
+      //       <div class="certificate-header">
+      //         <h3 class="certificate-title">Certificate of Achievement</h3>
+      //         <p class="certificate-subtitle">Cyber Safety Awareness</p>
+      //       </div>
+      //       <div class="certificate-body">
+      //         <p class="certificate-name">Congratulations!</p>
+      //         <p class="certificate-text">This certifies that you have successfully completed the Cyber Safety Quiz with a score of ${score}/${questions.length} (${Math.round((score / questions.length) * 100)}%).</p>
+      //         <p class="certificate-text">You have demonstrated excellent knowledge of cyber security best practices including phishing detection, password security, and online safety.</p>
+      //       </div>
+      //       <div class="certificate-footer">
+      //         <div class="certificate-date">${formattedDate}</div>
+      //         <div class="certificate-signature">Cyber Safety Team</div>
+      //       </div>
+      //     </div>
+      //   `;
+      // }
+      
+      container.innerHTML = html;
+      container.style.display = 'block';
+      
+      // Add show class for animation after a slight delay
+      setTimeout(() => {
+        const feedback = container.querySelector('.feedback');
+        feedback.classList.add('show');
+        
+        const certificate = container.querySelector('.certificate');
+        if (certificate) {
+          certificate.style.display = 'block';
+        }
+      }, 100);
+    }
+    
+    function toggleAnswerTabsDropdown() {
+      const dropdown = document.getElementById('answer-dropdown');
+      dropdown.classList.toggle('hidden');
+      if (!dropdown.classList.contains('loaded')) {
+        renderAnswerDetails();
+        dropdown.classList.add('loaded');
+      }
+    }
+
+    function showAnswerTab(type) {
+      document.querySelectorAll('.dropdown-item').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+
+      document.querySelector(`.dropdown-item[onclick*="${type}"]`).classList.add('active');
+      document.getElementById(`${type}-tab`).classList.remove('hidden');
+    }
+
+    function renderAnswerDetails() {
+      const correctTab = document.getElementById('correct-tab');
+      const incorrectTab = document.getElementById('incorrect-tab');
+      correctTab.innerHTML = '';
+      incorrectTab.innerHTML = '';
+
+      questions.forEach((q, i) => {
+        const userAnswer = q.userAnswer !== undefined ? q.userAnswer : null;
+        const isCorrect = userAnswer === q.correct;
+        const section = isCorrect ? correctTab : incorrectTab;
+
+        const item = document.createElement('div');
+        item.className = `answer-detail ${isCorrect ? 'correct' : 'incorrect'}`;
+        item.innerHTML = `
+          <p><strong>Q${i + 1}:</strong> ${q.text}</p>
+          <p><strong>Your Answer:</strong> ${userAnswer !== null ? q.options[userAnswer] : 'No answer selected'}</p>
+          <p><strong>Correct Answer:</strong> ${q.options[q.correct]}</p>
+          <p><strong>Explanation:</strong> ${q.explanation}</p>
+          <hr>
+        `;
+        section.appendChild(item);
+      });
+    }
+
+      // ----------------------------------------
+    function toggleChat() {
+      const chatBox = document.getElementById('chatBox');
+      chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function updateChatWidgetForQuestion(q) {
+      const avatar = document.querySelector('.avatar');
+      const chatBody = document.getElementById('chatBody');
+      const text = q.text.toLowerCase();
+
+      if (text.includes('phishing')) {
+        
+        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>`;
+      } else if (text.includes('password')) {
+     
+        chatBody.innerHTML = `<p>Let’s talk about cybersecurity!</p>`;
+      } else {
+        
+        chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
+      }
+    }
+
+    function getPerformanceInsights() {
+      const percentage = Math.round((score / questions.length) * 100);
+      
+      if (percentage >= 80) {
+        return "You are highly aware of cyber and mobile safety.";
+      } else if (percentage >= 60) {
+        return "You are moderately aware of cyber and mobile safety.";
+      } else {
+        return "You are somewhat aware of cyber and mobile safety.";
+      }
+    }
+    
+    // Handle resize events
+    window.addEventListener('resize', function() {
+      const isMobileNow = window.matchMedia("(max-width: 600px)").matches;
+      if (isMobileNow !== isMobile) {
+        location.reload(); // Refresh to adjust layout if switching between mobile/desktop
+      }
+    });
+  </script>
+
+  <div class="chat-widget">
+    <div class="chat-toggle" onclick="toggleChat()">
+      <img src="img/VA-logo.png" alt="Help Avatar" class="avatar" />
+      <span class="chat-label">💬 Need help?</span>
+    </div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <span>Support Chat</span>
+        <button onclick="toggleChat()">×</button>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <p>Hi! How can I help you today?</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
