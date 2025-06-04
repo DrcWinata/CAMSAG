@@ -825,8 +825,12 @@
 <body>
   <div class="container animate-fadeIn" id="start-screen">
     <img src="Homepage-img.png" alt="Intro" class="question-image">
-    <h1>Can you spot when you're being phished?</h1>
-    <p>Think you can tell what's real or fake? Gauge your level knowledge of Cyber and Mobile Safety with this interactive quiz!</p>
+    <h1>
+      Do you know what is Safe and Unsafe?
+    <br>
+      Do you know when you're being phished?
+    </h1>
+    <p>Gauge your knowledge level of Cyber and Mobile Safety!</p>
     <button class="btn start-btn" onclick="startQuiz()">
       <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
     </button>
@@ -1212,7 +1216,7 @@
       const avgTimePerQuestion = Math.round(totalTime / questions.length);
       
       quizContainer.innerHTML = `
-        <h2 class="animate-fadeIn">Quiz Complete!</h2>
+        <h2 class="animate-fadeIn">Gauge Complete!</h2>
         <div class="score-container animate-fadeIn">
           <div class="circle-progress-container">
             <div class="circle-progress-outer">
@@ -1235,7 +1239,7 @@
         <div class="answer-details-container animate-fadeIn">
           <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
             <button class="btn dropdown-toggle" onclick="toggleAnswerTabsDropdown()">
-              <i class="fas fa-chevron-down icon"></i> Show Answer Details
+              <i class="fas fa-chevron-down icon"></i> Show Performance Details
             </button>
           </div>
 
@@ -1251,10 +1255,10 @@
 
 
 
-        <p class="animate-fadeIn">You've learned how to identify phishing attempts, create strong passwords, and practice good cyber security habits.</p>
+        <p class="animate-fadeIn">You are now more aware of how to identify phishing attempts, create strong passwords, and practice good cyber security habits.</p>
         
         <button class="btn start-btn animate-fadeIn" onclick="location.reload()">
-          <i class="fas fa-redo icon"></i>Try Again
+          <i class="fas fa-redo icon"></i>Gauge Again
         </button>
       `;
       
@@ -1304,7 +1308,7 @@
       
       let html = `
         <div class="feedback" style="display: block; margin-bottom: 20px; text-align: left;">
-          <h3 style="margin-bottom: 10px;"><i class="fas fa-lightbulb icon"></i>Performance Insights</h3>
+          <h3 style="margin-bottom: 10px;"><i class="fas fa-lightbulb icon"></i>Gauge Insights</h3>
           <p>${strengthsAndTips}</p>
         </div>
       `;
@@ -1406,7 +1410,8 @@
 
       if (text.includes('phishing')) {
         
-        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>`;
+        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>
+        <button>Start</button>`;
       } else if (text.includes('password')) {
      
         chatBody.innerHTML = `<p>Let’s talk about cybersecurity!</p>`;
@@ -1440,11 +1445,11 @@
   <div class="chat-widget">
     <div class="chat-toggle" onclick="toggleChat()">
       <img src="VA-logo.png" alt="Help Avatar" class="avatar" />
-      <span class="chat-label">💬 Need help?</span>
+      <span class="chat-label">💬 Click here for Virtual Assistant</span>
     </div>
     <div class="chat-box" id="chatBox">
       <div class="chat-header">
-        <span>Support Chat</span>
+        <span>Virtual Assistant</span>
         <button onclick="toggleChat()">×</button>
       </div>
       <div class="chat-body" id="chatBody">
