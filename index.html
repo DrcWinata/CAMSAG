@@ -1083,26 +1083,22 @@
         correctAnswerStreak = 0;
         wrongAnswers.push(currentQuestion);
       }
-      
+    
       // Mark buttons with appropriate classes
       const buttons = document.querySelectorAll(".answers button");
       buttons.forEach((b, i) => {
-        // Remove previous states
         b.classList.remove("selected", "correct", "incorrect", "correct-answer");
-        
-        // Remove any existing checkmarks
+    
         const existingCheckmark = b.querySelector('.checkmark');
         if (existingCheckmark) {
           existingCheckmark.remove();
         }
-        
-        // Mark the selected answer
+    
         if (i === index) {
           b.classList.add("selected");
           b.classList.add(index === correct ? "correct" : "incorrect");
         }
-        
-        // Always add checkmark to the correct answer
+    
         if (i === correct) {
           b.classList.add("correct-answer");
           const checkmark = document.createElement('i');
@@ -1110,20 +1106,25 @@
           b.appendChild(checkmark);
         }
       });
-      
-      // Show both buttons
-      const showFeedbackBtn = document.getElementById("show-feedback");
-      const nextBtn = document.getElementById("next-btn");
-      
-      showFeedbackBtn.style.display = "inline-block";
-      showFeedbackBtn.classList.add("animate-fadeIn");
-      
-      nextBtn.style.display = "inline-block";
-      nextBtn.classList.add("animate-fadeIn");
-      
-      // On mobile, scroll to the buttons
+    
+      // Set feedback message
+      const feedback = document.getElementById("feedback");
+      if (index === correct) {
+        feedback.textContent = "✅ You're right!";
+      } else {
+        feedback.textContent = `❌ You're wrong. The correct answer is: "${questions[currentQuestion].options[correct]}"`;
+      }
+      feedback.style.display = "block";
+      void feedback.offsetWidth;
+      feedback.classList.add("show");
+    
+      document.getElementById("show-feedback").style.display = "inline-block";
+      document.getElementById("show-feedback").classList.add("animate-fadeIn");
+      document.getElementById("next-btn").style.display = "inline-block";
+      document.getElementById("next-btn").classList.add("animate-fadeIn");
+    
       if (isMobile) {
-        nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        document.getElementById("next-btn").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }
  
