@@ -1030,8 +1030,9 @@
     function showQuestion() {
       const q = questions[currentQuestion];
 
+      updateChatMessage("quiz");
       // NEW: update avatar widget based on question
-      updateChatWidgetForQuestion(q);
+      // updateChatWidgetForQuestion(q);
 
       const questionEl = document.getElementById("question");
       questionEl.textContent = q.text;
