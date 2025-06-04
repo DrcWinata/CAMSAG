@@ -1428,11 +1428,13 @@
       if (text.includes('phishing') || text.includes('safe') || text.includes('combination') || text.includes('antivirus') 
           || text.includes('application') || text.includes('WhatsApp') || text.includes('restaurant') || text.includes('editing') || text.includes('iPhone') 
          || text.includes('bank')) {
-        chatBody.innerHTML = `<p>Read the given question and click either on <button class="btn" style="font-size: 12px;">${q.options[0]}</button> 
+        chatBody.innerHTML = `<p>Read the given question and click either on 
+        <br>
+        <button class="btn" style="font-size: 12px;">${q.options[0]}</button> 
         <br>
         or 
         <br>
-        <button class="btn">${q.options[1]}</button>  
+        <button class="btn" style="font-size: 12px;">${q.options[1]}</button>  
         <br>
         to select your choice.</p>`
       } 
