@@ -822,8 +822,7 @@
       font-size: 12px;
     } 
 };
-    window.onload = () => {
-  updateChatMessage("start"); // Show message A
+    
   </style>
 </head>
 <body>
@@ -1429,17 +1428,21 @@
     function updateChatMessage(stage) {
         const chatBody = document.getElementById('chatBody');
       
+        if (!chatBody) return;
+      
         if (stage === "start") {
           chatBody.innerHTML = `<p>👋 Welcome! Ready to test your cyber safety skills? Click 'Start Gauging' to begin.</p>`;
         } else if (stage === "quiz") {
-          chatBody.innerHTML = `<p>🧐 Choose the correct answer and I'll guide you if you're right or wrong!</p>`;
+          chatBody.innerHTML = `<p>🧐 Pick the best answer, and I’ll guide you if you're right or wrong!</p>`;
         } else if (stage === "summary") {
-          chatBody.innerHTML = `<p>🎉 Great job! Review your results and learn how to improve your cyber awareness.</p>`;
+          chatBody.innerHTML = `<p>🎉 Well done! Check your results and learn how to improve your cyber awareness.</p>`;
         }
       
-        // Auto-open the chat box
-        document.getElementById('chatBox').style.display = 'block';
+        // Auto-open the chat
+        const chatBox = document.getElementById('chatBox');
+        if (chatBox) chatBox.style.display = 'block';
       }
+
 
     
     function getPerformanceInsights() {
@@ -1461,6 +1464,9 @@
         location.reload(); // Refresh to adjust layout if switching between mobile/desktop
       }
     });
+
+    window.onload = () => {
+      updateChatMessage("start"); // Show message A
   </script>
 
   <div class="chat-widget">
