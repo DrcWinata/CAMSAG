@@ -1407,25 +1407,9 @@
       }
     }
 
-    // function updateChatMessage(stage) {
-    //     const chatBody = document.getElementById('chatBody');
-      
-    //     if (!chatBody) return;
-      
-    //     if (stage === "start") {
-    //       chatBody.innerHTML = `<p>👋 Welcome! Ready to test your cyber safety skills? Click 'Start Gauging' to begin.</p>`;
-    //     } else if (stage === "quiz") {
-    //       chatBody.innerHTML = `<p>🧐 Pick the best answer, and I’ll guide you if you're right or wrong!</p>`;
-    //     } else if (stage === "summary") {
-    //       chatBody.innerHTML = `<p>🎉 Well done! Check your results and learn how to improve your cyber awareness.</p>`;
-    //     }
-      
-    //     // Auto-open the chat
-    //     const chatBox = document.getElementById('chatBox');
-    //     if (chatBox) chatBox.style.display = 'block';
-    //   }
-
-
+    function updateChatWidgetSummary(){
+        chatBody.innerHTML = `<p>You've successfully finished the CAMSAG. To see the results</p>`;
+    }
     
     function getPerformanceInsights() {
       const percentage = Math.round((score / questions.length) * 100);
