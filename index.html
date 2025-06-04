@@ -342,7 +342,7 @@
       color: white;
       box-shadow: var(--shadow-md);
       padding: 8px 12px;
-      font-size: 0.3rem;
+      font-size: 0.6rem;
     }
     
     .start-btn {
@@ -1417,7 +1417,7 @@
       if (text.includes('phishing') || text.includes('safe') || text.includes('combination') || text.includes('antivirus') 
           || text.includes('application') || text.includes('WhatsApp') || text.includes('restaurant') || text.includes('editing') || text.includes('iPhone') 
          || text.includes('bank')) {
-        chatBody.innerHTML = `<p>You can choose and click the answers based on your knowledge and it will show the short explanation for every answer</p>`
+        chatBody.innerHTML = `<p>Read the given question and click either on ${q.options[0]} or ${q.options[1]}  to select your choice.</p>`
       } else {
         
         chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
@@ -1473,9 +1473,9 @@
         You'll need to answer some cyber awareness questions to gauge your knowledge.
         <br><br>
         To start the gauge, you can click 
-          <button class="btn startVA-btn">
-              <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
-            </button>
+        <button class="btn startVA-btn">
+            <i class="fas fa-play icon" style="margin-right: 2px;"></i>Start Gauging
+        </button>
         </p>
       </div>
     </div>
