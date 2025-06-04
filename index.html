@@ -844,21 +844,6 @@
       <div class="progress-bar" id="progress-bar"></div>
     </div>
     
-    <!-- <div class="quiz-info">
-      <span>Cyber Safety Quiz</span>
-      <div class="difficulty-badges">
-        <div class="difficulty-badge active tooltip">
-          <span class="tooltip-text">Beginner level</span>
-        </div>
-        <div class="difficulty-badge active tooltip">
-          <span class="tooltip-text">Intermediate level</span>
-        </div>
-        <div class="difficulty-badge tooltip">
-          <span class="tooltip-text">Advanced level</span>
-        </div>
-      </div>
-    </div> -->
-    
     <div class="question animate-fadeIn" id="question"></div>
     <img id="question-image" class="question-image animate-fadeIn" style="display:none;">
     <div class="answers" id="answers"></div>
@@ -1191,9 +1176,6 @@
     }
     
     function showResults(totalTime) {
-      updateChatMessage("summary"); // Show message C
-
-      
       const quizContainer = document.getElementById("quiz-container");
       const percentage = Math.round((score / questions.length) * 100);
       
@@ -1464,9 +1446,6 @@
         location.reload(); // Refresh to adjust layout if switching between mobile/desktop
       }
     });
-
-    // window.onload = () => {
-    //   updateChatMessage("start"); // Show message A
   </script>
 
   <div class="chat-widget">
