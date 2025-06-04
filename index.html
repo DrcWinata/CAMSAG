@@ -335,6 +335,15 @@
       align-items: center;
       margin-top: 10px;
     }
+
+    .startVA-btn {
+      margin-top: 14px;
+      background: var(--bg-gradient);
+      color: white;
+      box-shadow: var(--shadow-md);
+      padding: 8px 12px;
+      font-size: 0.3rem;
+    }
     
     .start-btn {
       margin-top: 24px;
@@ -827,7 +836,7 @@
 </head>
 <body>
   <div class="container animate-fadeIn" id="start-screen">
-    <h1>CAMSAG (Cyber And Mobile Safety Awareness Gauge)</h1>
+    <h1>CAMSAG <br> (Cyber And Mobile Safety Awareness Gauge)</h1>
     <img src="img/CAMSAGBanner.png" alt="Intro" class="question-image">
     <h1>
       Do you know what is Safe and Unsafe?
@@ -862,7 +871,7 @@
       </button>
       
       <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">
-        <i class="fas fa-arrow-right icon"></i>Next Question
+        <i class="fas fa-arrow-right icon" style="margin-right: 5px;"></i>Next Question
       </button>
     </div>
   </div>
@@ -1230,7 +1239,7 @@
         <div class="answer-details-container animate-fadeIn">
           <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
             <button class="btn dropdown-toggle" onclick="toggleAnswerTabsDropdown()">
-              <i class="fas fa-chevron-down icon"></i> Show Performance Details
+              <i class="fas fa-chevron-down icon" style="margin-right: 5px;"></i> Show Performance Details
             </button>
           </div>
 
@@ -1249,7 +1258,7 @@
         <p class="animate-fadeIn">You are now more aware of how to identify phishing attempts, create strong passwords, and practice good cyber security habits.</p>
         
         <button class="btn start-btn animate-fadeIn" onclick="location.reload()">
-          <i class="fas fa-redo icon"></i>Gauge Again
+          <i class="fas fa-redo icon" style="margin-right: 5px;"></i>Gauge Again
         </button>
       `;
       
@@ -1299,7 +1308,7 @@
       
       let html = `
         <div class="feedback" style="display: block; margin-bottom: 20px; text-align: left;">
-          <h3 style="margin-bottom: 10px;"><i class="fas fa-lightbulb icon"></i>Gauge Insights</h3>
+          <h3 style="margin-bottom: 10px;"><i class="fas fa-lightbulb icon" style="margin-right: 5px;"></i>Gauge Insights</h3>
           <p>${strengthsAndTips}</p>
         </div>
       `;
@@ -1395,9 +1404,9 @@
 
       if (!chatBox) return;
 
-  // Toggle only if manually clicked
-  const isVisible = chatBox.style.display === 'block';
-  chatBox.style.display = isVisible ? 'none' : 'block';
+      // Toggle only if manually clicked
+      const isVisible = chatBox.style.display === 'block';
+      chatBox.style.display = isVisible ? 'none' : 'block';
     }
 
     function updateChatWidgetForQuestion(q) {
@@ -1416,7 +1425,15 @@
     }
 
     function updateChatWidgetSummary(){
-        chatBody.innerHTML = `<p>You've successfully finished the CAMSAG. To see the results</p>`;
+        chatBody.innerHTML = `
+        <p>You have now completed gauging
+          <br>
+        To view the details of your performance, click on the
+        <br>
+        <button></button>
+        If you wish to redo the gaugin, click on the
+        Gauge Button
+</p>`;
     }
     
     function getPerformanceInsights() {
@@ -1455,7 +1472,10 @@
         <br><br>
         You'll need to answer some cyber awareness questions to gauge your knowledge.
         <br><br>
-        To start the gauge, you can click Start Gauging Button.
+        To start the gauge, you can click 
+          <button class="btn startVA-btn">
+              <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
+            </button>
         </p>
       </div>
     </div>
