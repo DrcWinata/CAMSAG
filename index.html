@@ -1428,7 +1428,13 @@
       if (text.includes('phishing') || text.includes('safe') || text.includes('combination') || text.includes('antivirus') 
           || text.includes('application') || text.includes('WhatsApp') || text.includes('restaurant') || text.includes('editing') || text.includes('iPhone') 
          || text.includes('bank')) {
-        chatBody.innerHTML = `<p>Read the given question and click either on <button class="btn">${q.options[0]}</button> or <button class="btn">${q.options[1]}</button>  to select your choice.</p>`
+        chatBody.innerHTML = `<p>Read the given question and click either on <button class="btn" style="font-size: 12px;">${q.options[0]}</button> 
+        <br>
+        or 
+        <br>
+        <button class="btn">${q.options[1]}</button>  
+        <br>
+        to select your choice.</p>`
       } 
     }
 
@@ -1440,8 +1446,10 @@
         <button class="btn dropdownVA-toggle">
               <i class="fas fa-chevron-down icon" style="margin-right: 2px;"></i> Show Performance Details
         </button>
+        <br>
         If you wish to redo the gaugin, click on the
-        <button class="btn start-btn">
+        <br>
+        <button class="btn startVA-btn">
           <i class="fas fa-redo icon" style="margin-right: 2px;"></i>Gauge Again
         </button>
 </p>`;
@@ -1478,7 +1486,7 @@
         <span>Virtual Assistant</span>
         <button onclick="toggleChat()">×</button>
       </div>
-      <div class="chat-body" id="chatBody">
+      <div class="chat-body" id="chatBody" style="text-align: center;">
         <p>Hi! Welcome to Cyber And Mobile Safety Awareness Gauge (CAMSAG)
         <br><br>
         You'll need to answer some cyber awareness questions to gauge your knowledge.
