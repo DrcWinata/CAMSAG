@@ -821,6 +821,11 @@
       color: #333;
       font-size: 12px;
     }
+
+    window.onload = () => {
+  updateChatMessage("start"); // Show message A
+};
+
   </style>
 </head>
 <body>
@@ -985,6 +990,8 @@
     const isMobile = window.matchMedia("(max-width: 600px)").matches;
  
     function startQuiz() {
+      updateChatMessage("quiz");
+      
       document.getElementById("start-screen").style.display = "none";
       const quizContainer = document.getElementById("quiz-container");
       quizContainer.style.display = "block";
@@ -1186,6 +1193,9 @@
     }
     
     function showResults(totalTime) {
+      updateChatMessage("summary"); // Show message C
+
+      
       const quizContainer = document.getElementById("quiz-container");
       const percentage = Math.round((score / questions.length) * 100);
       
@@ -1408,9 +1418,7 @@
       const text = q.text.toLowerCase();
 
       if (text.includes('phishing')) {
-        
-        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>
-        <button class="btn start-btn">Start</button>`;
+        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>`;
       } else if (text.includes('password')) {
      
         chatBody.innerHTML = `<p>Let’s talk about cybersecurity!</p>`;
@@ -1420,6 +1428,22 @@
       }
     }
 
+    function updateChatMessage(stage) {
+        const chatBody = document.getElementById('chatBody');
+      
+        if (stage === "start") {
+          chatBody.innerHTML = `<p>👋 Welcome! Ready to test your cyber safety skills? Click 'Start Gauging' to begin.</p>`;
+        } else if (stage === "quiz") {
+          chatBody.innerHTML = `<p>🧐 Choose the correct answer and I'll guide you if you're right or wrong!</p>`;
+        } else if (stage === "summary") {
+          chatBody.innerHTML = `<p>🎉 Great job! Review your results and learn how to improve your cyber awareness.</p>`;
+        }
+      
+        // Auto-open the chat box
+        document.getElementById('chatBox').style.display = 'block';
+      }
+
+    
     function getPerformanceInsights() {
       const percentage = Math.round((score / questions.length) * 100);
       
