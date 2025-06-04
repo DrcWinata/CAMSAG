@@ -1409,21 +1409,21 @@
       chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
     }
 
-    function updateChatWidgetForQuestion(q) {
-      const avatar = document.querySelector('.avatar');
-      const chatBody = document.getElementById('chatBody');
-      const text = q.text.toLowerCase();
+    // function updateChatWidgetForQuestion(q) {
+    //   const avatar = document.querySelector('.avatar');
+    //   const chatBody = document.getElementById('chatBody');
+    //   const text = q.text.toLowerCase();
 
-      if (text.includes('phishing')) {
-        chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>`;
-      } else if (text.includes('password')) {
+    //   if (text.includes('phishing')) {
+    //     chatBody.innerHTML = `<p>You can choose and click the answers and it will show the short explanation for every answer</p>`;
+    //   } else if (text.includes('password')) {
      
-        chatBody.innerHTML = `<p>Let’s talk about cybersecurity!</p>`;
-      } else {
+    //     chatBody.innerHTML = `<p>Let’s talk about cybersecurity!</p>`;
+    //   } else {
         
-        chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
-      }
-    }
+    //     chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
+    //   }
+    // }
 
     function updateChatMessage(stage) {
         const chatBody = document.getElementById('chatBody');
