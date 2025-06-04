@@ -344,6 +344,17 @@
       padding: 8px 12px;
       font-size: 0.6rem;
     }
+
+    .dropdownVA-toggle {
+      background: var(--primary);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.6rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
     
     .start-btn {
       margin-top: 24px;
@@ -1417,11 +1428,8 @@
       if (text.includes('phishing') || text.includes('safe') || text.includes('combination') || text.includes('antivirus') 
           || text.includes('application') || text.includes('WhatsApp') || text.includes('restaurant') || text.includes('editing') || text.includes('iPhone') 
          || text.includes('bank')) {
-        chatBody.innerHTML = `<p>Read the given question and click either on <button>${q.options[0]}</button> or <button>${q.options[1]}</button>  to select your choice.</p>`
-      } else {
-        
-        chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
-      }
+        chatBody.innerHTML = `<p>Read the given question and click either on <button class="btn">${q.options[0]}</button> or <button class="btn">${q.options[1]}</button>  to select your choice.</p>`
+      } 
     }
 
     function updateChatWidgetSummary(){
@@ -1429,10 +1437,13 @@
         <p>You have now completed gauging
           <br>
         To view the details of your performance, click on the
-        <br>
-        <button></button>
+        <button class="btn dropdownVA-toggle">
+              <i class="fas fa-chevron-down icon" style="margin-right: 2px;"></i> Show Performance Details
+        </button>
         If you wish to redo the gaugin, click on the
-        Gauge Button
+        <button class="btn start-btn">
+          <i class="fas fa-redo icon" style="margin-right: 2px;"></i>Gauge Again
+        </button>
 </p>`;
     }
     
