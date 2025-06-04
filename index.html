@@ -1176,6 +1176,7 @@
     }
     
     function showResults(totalTime) {
+      updateChatWidgetSummary()
       const quizContainer = document.getElementById("quiz-container");
       const percentage = Math.round((score / questions.length) * 100);
       
