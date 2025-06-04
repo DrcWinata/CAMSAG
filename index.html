@@ -1417,7 +1417,7 @@
       if (text.includes('phishing') || text.includes('safe') || text.includes('combination') || text.includes('antivirus') 
           || text.includes('application') || text.includes('WhatsApp') || text.includes('restaurant') || text.includes('editing') || text.includes('iPhone') 
          || text.includes('bank')) {
-        chatBody.innerHTML = `<p>Read the given question and click either on ${q.options[0]} or ${q.options[1]}  to select your choice.</p>`
+        chatBody.innerHTML = `<p>Read the given question and click either on <button>${q.options[0]}</button> or <button>${q.options[1]}</button>  to select your choice.</p>`
       } else {
         
         chatBody.innerHTML = `<p>Hi! How can I help you today?</p>`;
