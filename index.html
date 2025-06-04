@@ -757,69 +757,69 @@
     }
 
     .chat-widget {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-family: Arial, sans-serif;
-  z-index: 1000;
-}
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+    }
+    
+    .chat-toggle {
+      display: flex;
+      align-items: center;
+      background-color: #007bff;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
 
-.chat-toggle {
-  display: flex;
-  align-items: center;
-  background-color: #007bff;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+      margin-right: 10px;
+    }
+    
+    .chat-label {
+      font-size: 12px;
+    }
+    
+    .chat-box {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      width: 250px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid white;
-  margin-right: 10px;
-}
-
-.chat-label {
-  font-size: 14px;
-}
-
-.chat-box {
-  display: none;
-  position: absolute;
-  bottom: 60px;
-  right: 0;
-  width: 250px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  overflow: hidden;
-}
-
-.chat-header {
-  background: #007bff;
-  color: white;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chat-header button {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.chat-body {
-  padding: 10px;
-  color: #333;
-}
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .chat-header button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .chat-body {
+      padding: 10px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -1452,9 +1452,9 @@
       </div>
       <div class="chat-body" id="chatBody">
         <p>Hi! Welcome to Cyber And Mobile Safety Awareness Gauge (CAMSAG)
-        <br>
+        <br><br>
         You'll need to answer some cyber awareness questions to gauge your knowledge.
-        <br>
+        <br><br>
         To start the gauge, you can click Start Gauging Button.
         <button class="btn start-btn">Start Gauging</button>
         </p>
