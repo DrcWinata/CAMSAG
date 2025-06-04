@@ -881,97 +881,90 @@
   <script>
     const questions = [
       {
-        text: "Which of these emails is a phishing attempt?",
+        text: "Which Email is a phishing attempt?",
         image: "email_comparison.png",
         options: ["Email A", "Email B"],
         correct: 1,
         explanation: "Email B is a phishing attempt because it has several red flags: spelling errors, a suspicious sender address that doesn't match the company it claims to be from, urgency in the message, and requesting sensitive information. Always check for these signs when receiving unexpected emails."
       },
       {
-        text: "Which of these is the strongest password?",
+        text: "You are given a website URL by an unknown person requesting you to visit their new company facebook account. Do you think it is safe or unsafe?",
         image: "password_strength.png",
-        options: ["123456", "password", "QwErTy!78#"],
-        correct: 2,
-        explanation: "QwErTy!78# is the strongest password because it contains a mix of uppercase letters, lowercase letters, numbers, and special characters. This combination makes it much harder to crack through brute force attacks. Always use complex passwords and consider using a password manager."
+        options: ["Unsafe", "Safe"],
+        correct: 0,
+        explanation: "It is unsafe because you don't know the person and the person's intent."
       },
       {
-        text: "What should you do if you receive a suspicious email?",
+        text: "When creating a password, which do you think is a good combination for your password?",
         options: [
-          "Click the links to verify if they're legitimate",
-          "Reply to ask if it's really them",
-          "Delete it and report it as phishing",
-          "Forward it to colleagues to get their opinion"
+          "Combination A",
+          "Combination B"
         ],
-        correct: 2,
-        explanation: "The safest approach is to delete suspicious emails and report them as phishing. Never click links in suspicious emails as they may lead to malicious websites. Don't reply to suspected phishing emails or forward them to colleagues as this could spread the threat."
+        correct: 1,
+        explanation: "Combination B is a good combination because it contains a mix of uppercase letters, lowercase letters, numbers, and special characters."
       },
       {
-        text: "Which of these is a secure website?",
+        text: "During a software installation, you are prompted to temporarily turn off your antivirus. What should you do?",
         image: "website_url_examples.png",
-        options: ["http://www.mybank.com", "https://www.mybank.com"],
+        options: ["Turn off antivirus and continue installation ", "Stop the installation and keep antivirus on"],
         correct: 1,
-        explanation: "The 'https://' prefix and the padlock icon indicate that a website is using encryption to secure your connection. This means the data you send and receive is protected from eavesdropping. Always check for these security indicators before entering any sensitive information on a website."
+        explanation: "Legitimate software should never require you to disable your antivirus protection. This is a major red flag indicating the software may contain malware or viruses. Even if it comes from a friend, they might unknowingly be sharing infected software. Always keep your antivirus active and abort any installation that asks you to disable security features."
       },
       {
-        text: "Which of these practices best protects your accounts?",
+        text: "You have 2 different application accounts, for example, one is an email account and the other is a banking account. Should you use the same password for both accounts?",
         options: [
-          "Using the same password for all accounts to remember it easily",
-          "Writing down passwords on sticky notes near your computer",
-          "Using two-factor authentication (2FA) whenever available",
-          "Sharing passwords with trusted colleagues for convenience"
-        ],
-        correct: 2,
-        explanation: "Two-factor authentication (2FA) adds an extra layer of security by requiring something you know (password) and something you have (like your phone). This means that even if your password is compromised, attackers still can't access your account without the second factor."
-      },
-      {
-        text: "Which of these is a sign of a suspicious link?",
-        options: [
-          "It comes from a known contact with a proper company email address",
-          "The URL has slight misspellings (like 'amaz0n.com' instead of 'amazon.com')",
-          "It directs to an HTTPS secured website",
-          "It was sent during normal business hours"
+          "Yes",
+          "No"
         ],
         correct: 1,
-        explanation: "Misspelled URLs (like 'amaz0n.com') are a common tactic used by scammers to trick you into visiting malicious websites. Always carefully check the spelling of URLs, especially when they involve numbers replacing letters or slightly altered domain names."
+        explanation: "Using the same password for multiple platforms is dangerous.If hackers steal your password from one site, they can try it on others — and it often works. Always use different, strong passwords for each account."
       },
       {
-        text: "Someone sends you a message with these two files. Which attachment is safer to download?",
+        text: "You received a WhatsApp message with a wedding invitation from someone you don't know well enough. They're asking you to download a file. Which file is safer to download?",
+        options: [
+          "Wedding_invitation.pdf",
+          "WeddingInvitation.apk"
+        ],
+        correct: 0,
+        explanation: "PDF files are generally safer than APK files. APK files are Android app installation files that can contain malware and potentially harm your device. Always be cautious when downloading files from unknown sources, especially executable files like APK."
+      },
+      {
+        text: "You're browsing a restaurant menu online via your mobile phone. This pop-up appears. What should you do next?",
+        image: "app_permissions.png",
+        options: [
+          "Don't Allow",
+          "Allow"
+        ],
+        correct: 0,
+        explanation: "A restaurant menu website has no legitimate reason to access your contacts. This is likely a malicious popup trying to steal your personal information. Always deny unnecessary permissions, especially from websites you don't trust."
+      },
+      {
+        text: "You downloaded a photo editing app. When you open it, two permission requests appear. Which permission should you allow for this type of app?",
+        options: [
+          "Allow access to Photos/Videos",
+          "Allow access to Record Audio"
+        ],
+        correct: 0,
+        explanation: "A photo editing app legitimately needs access to your photos and videos to function properly. However, it doesn't need access to record audio unless it has specific audio editing features. Only grant permissions that are necessary for the app's core functionality."
+      },
+      {
+        text: "While browsing for news on your mobile phone, a pop-up appears showing that you have won an iPhone with a “CLOSE IT” button. What is the safest way to close this pop-up?",
         image: "whatsapp_attachments.png",
-        options: ["Wedding_invitation.exe", "Wedding_invitation.pdf"],
+        options: [
+          "Click the 'Close' button", 
+          "Click the X button in the corner"
+        ],
         correct: 1,
         explanation: "PDF files are generally safer than executable (.exe) files. .exe files can install malware or viruses on your device when opened, while PDFs are typically just documents. However, always be cautious with any unexpected attachments, even from friends, as their accounts might be compromised."
       },
       {
-        text: "You're downloading a photo editing app for your phone. Which permission request should make you suspicious?",
-        image: "app_permissions.png",
+        text: "You received a message which appears to be from your bank, requesting you to update your mobile banking app using a provided link. What should you do?",
         options: [
-          "Access to camera",
-          "Access to your microphone",
-          "Access to device storage"
+          "Click the link immediately",
+          "Check the official app store for updates"
         ],
         correct: 1,
-        explanation: "A photo editing app legitimately needs camera access (to take photos) and storage access (to save and read photos). However, requesting microphone access is suspicious as it's unrelated to photo editing functions. Always question why an app needs permissions that don't match its purpose."
-      },
-      {
-        text: "You're at a café and need internet access. Which WiFi option is the safest choice?",
-        options: [
-          "Connect to 'FREE_WIFI' (no password required)",
-          "Connect to 'CafeGuest_2024' and ask staff for the password",
-          "Use any available network since you're just browsing",
-          "Connect to 'FREE_INTERNET_HERE' because it sounds official"
-        ],
-        correct: 1,
-        explanation: "Password-protected networks are much safer than open WiFi networks. When you use open WiFi, anyone nearby can potentially monitor your internet activity. Always ask café staff for the official WiFi network and password, and avoid accessing sensitive information on public networks."
-      },
-      {
-        text: "Someone claims to be a courier and asks you to share your live location via messaging app for package delivery. What should you do?",
-        options: [
-          "Block them immediately without responding",
-          "Share your location immediately to get your package",
-          "Check if they're associated with an official shipment first",
-        ],
-        correct: 2,
-        explanation: "Always verify before sharing your location! Check your shipment tracking number, contact the official courier company directly, or verify through the official app. Legitimate couriers have official procedures and won't randomly ask for live location through unknown messaging apps. Location sharing should only be done through verified, official channels."
+        explanation: "Never click links in messages claiming to be from your bank. This is a common phishing technique. Always verify app updates by going directly to the official app store (Google Play Store or Apple App Store) or your bank's official website. Legitimate banks will never ask you to update apps through message links."
       }
     ];
  
