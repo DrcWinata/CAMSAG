@@ -261,6 +261,22 @@
       transform: translateY(0);
       opacity: 1;
     }
+
+    .btnVA{
+      display: inline-block;
+      padding: 14px 28px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    } 
     
     .btn {
       display: inline-block;
@@ -1430,11 +1446,11 @@
          || text.includes('bank')) {
         chatBody.innerHTML = `<p>Read the given question and click either on 
         <br>
-        <button class="btn" style="font-size: 12px;">${q.options[0]}</button> 
+        <button class="btnVA" style="font-size: 12px;">${q.options[0]}</button> 
         <br>
         or 
         <br>
-        <button class="btn" style="font-size: 12px;">${q.options[1]}</button>  
+        <button class="btnVA" style="font-size: 12px;">${q.options[1]}</button>  
         <br>
         to select your choice.</p>`
       } 
