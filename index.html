@@ -987,7 +987,7 @@
     const isMobile = window.matchMedia("(max-width: 600px)").matches;
  
     function startQuiz() {
-      updateChatMessage("quiz");
+     
       
       document.getElementById("start-screen").style.display = "none";
       const quizContainer = document.getElementById("quiz-container");
@@ -1030,9 +1030,9 @@
     function showQuestion() {
       const q = questions[currentQuestion];
 
-      updateChatMessage("quiz");
+      
       // NEW: update avatar widget based on question
-      // updateChatWidgetForQuestion(q);
+      updateChatWidgetForQuestion(q);
 
       const questionEl = document.getElementById("question");
       questionEl.textContent = q.text;
@@ -1466,8 +1466,8 @@
       }
     });
 
-    window.onload = () => {
-      updateChatMessage("start"); // Show message A
+    // window.onload = () => {
+    //   updateChatMessage("start"); // Show message A
   </script>
 
   <div class="chat-widget">
