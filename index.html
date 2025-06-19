@@ -15,21 +15,20 @@
     }
     
     :root {
-  --primary: #007bff;
-  --primary-dark: #0069d9;
-  --primary-light: #66b2ff;
-  --secondary: #6c757d; /* neutral grayish tone to pair with blue */
-  --danger: #dc3545;    /* bootstrap-style red */
-  --dark: #343a40;      /* deep neutral for text/background */
-  --light: #f8f9fa;     /* very light gray, almost white */
-  --gray: #adb5bd;      /* neutral mid-gray */
-  --bg-gradient: linear-gradient(135deg, #007bff 0%, #66b2ff 100%);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --animation-duration: 0.4s;
-}
-
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #818cf8;
+      --secondary: #10b981;
+      --danger: #ef4444;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #818cf8 100%);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --animation-duration: 0.4s;
+    }
     
     body {
       font-family: 'Poppins', sans-serif;
@@ -81,10 +80,10 @@
     }
     
     h1 {
-      font-size: 1.6rem;
+      font-size: 2rem;
       font-weight: 700;
       margin: 0.5rem 0 1rem;
-      background: #062380;
+      background: var(--bg-gradient);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -99,12 +98,7 @@
     }
   
     h5 {
-      font-size: 1.1rem;
-      color: white;
-      font-weight: bold;
-      -webkit-text-stroke: 1px #2a1594; /* purple border */
-      text-stroke: 1px #2a1594;
-      font-family: Arial, sans-serif;
+      background-color: #3366cc;;
     }
     
     p {
@@ -384,7 +378,7 @@
     
     .start-btn {
       margin-top: 24px;
-      background: var(--primary);
+      background: var(--bg-gradient);
       color: white;
       box-shadow: var(--shadow-md);
       padding: 16px 36px;
@@ -866,8 +860,71 @@
       padding: 10px;
       color: #333;
       font-size: 12px;
-    } 
-};
+    }
+
+    /* Slideshow Styles */
+    .slideshow-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .slideshow-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slideshow-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow-image.active {
+      opacity: 1;
+    }
+
+    .slideshow-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .slideshow-exit-hint {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-family: 'Poppins', sans-serif;
+      animation: pulse 2s infinite;
+    }
     
   </style>
 </head>
@@ -986,14 +1043,14 @@
         explanation: "A photo editing app legitimately needs access to your photos and videos to function properly. However, it doesn't need access to record audio unless it has specific audio editing features. Only grant permissions that are necessary for the app's core functionality."
       },
       {
-        text: "While browsing for news on your mobile phone, a pop-up appears showing that you have won an iPhone with a “CLOSE IT” button. What is the safest way to close this pop-up?",
+        text: 'While browsing for news on your mobile phone, a pop-up appears showing that you have won an iPhone with a "CLOSE IT" button. What is the safest way to close this pop-up?',
         image: "img/Iphone.png",
         options: [
           "Click the 'Close' button", 
           "Click the X button in the corner"
         ],
         correct: 1,
-        explanation: "Fake “CLOSE IT” buttons in scam popups often redirect you to malicious websites or download harmful content. Always use the browser's X button or legitimate close controls to exit suspicious popups. These scam popups are designed to trick you into clicking their fake buttons."
+        explanation: "Fake 'CLOSE IT' buttons in scam popups often redirect you to malicious websites or download harmful content. Always use the browser's X button or legitimate close controls to exit suspicious popups. These scam popups are designed to trick you into clicking their fake buttons."
       },
       {
         text: "You received a message which appears to be from your bank, requesting you to update your mobile banking app using a provided link. What should you do?",
@@ -1503,6 +1560,177 @@
         location.reload(); // Refresh to adjust layout if switching between mobile/desktop
       }
     });
+
+    // Slideshow functionality
+    let idleTimer;
+    let slideshowTimer;
+    let currentSlideIndex = 0;
+    let slideshowImages = [];
+    let isSlideShowActive = false;
+    const IDLE_TIME = 10000; // 10 seconds
+    const SLIDE_DURATION = 3000; // 3 seconds per slide
+
+    // Initialize slideshow images
+    function initializeSlideshow() {
+      // You can add more images to this array
+      slideshowImages = [
+        'slideshow/gif.gif',
+        'slideshow/2.jpg',
+        'slideshow/3.jpg',
+        'slideshow/4.jpg',
+        'slideshow/5.jpg',
+        'slideshow/6.jpg',
+      ];
+      
+      // Filter out images that don't exist (optional)
+      // This prevents broken image errors
+      checkImagesExist();
+    }
+
+    function checkImagesExist() {
+      const validImages = [];
+      let checkedImages = 0;
+      
+      if (slideshowImages.length === 0) {
+        // Fallback: use a default image or create a simple slideshow
+        slideshowImages = ['slideshow/gif.gif'];
+        return;
+      }
+
+      slideshowImages.forEach((imageSrc, index) => {
+        const img = new Image();
+        img.onload = function() {
+          validImages.push(imageSrc);
+          checkedImages++;
+          if (checkedImages === slideshowImages.length) {
+            slideshowImages = validImages.length > 0 ? validImages : ['slideshow/gif.gif'];
+          }
+        };
+        img.onerror = function() {
+          checkedImages++;
+          if (checkedImages === slideshowImages.length) {
+            slideshowImages = validImages.length > 0 ? validImages : ['slideshow/gif.gif'];
+          }
+        };
+        img.src = imageSrc;
+      });
+    }
+
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      if (isSlideShowActive) {
+        hideSlideshow();
+      }
+      
+      idleTimer = setTimeout(() => {
+        showSlideshow();
+      }, IDLE_TIME);
+    }
+
+    function showSlideshow() {
+      if (isSlideShowActive) return;
+      
+      isSlideShowActive = true;
+      currentSlideIndex = 0;
+      
+      const overlay = document.getElementById('slideshowOverlay');
+      const container = document.getElementById('slideshowContainer');
+      
+      // Clear existing images
+      const existingImages = container.querySelectorAll('.slideshow-image');
+      existingImages.forEach(img => img.remove());
+      
+      // Create image elements
+      slideshowImages.forEach((imageSrc, index) => {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.className = 'slideshow-image';
+        img.alt = `Slideshow image ${index + 1}`;
+        if (index === 0) {
+          img.classList.add('active');
+        }
+        container.appendChild(img);
+      });
+      
+      // Show overlay
+      overlay.style.display = 'flex';
+      
+      // Update counter
+      updateSlideshowCounter();
+      
+      // Start slideshow timer
+      startSlideshowRotation();
+    }
+
+    function hideSlideshow() {
+      if (!isSlideShowActive) return;
+      
+      isSlideShowActive = false;
+      clearInterval(slideshowTimer);
+      
+      const overlay = document.getElementById('slideshowOverlay');
+      overlay.style.display = 'none';
+      
+      resetIdleTimer();
+    }
+
+    function startSlideshowRotation() {
+      slideshowTimer = setInterval(() => {
+        nextSlide();
+      }, SLIDE_DURATION);
+    }
+
+    function nextSlide() {
+      const images = document.querySelectorAll('.slideshow-image');
+      if (images.length <= 1) return;
+      
+      // Hide current image
+      images[currentSlideIndex].classList.remove('active');
+      
+      // Move to next image
+      currentSlideIndex = (currentSlideIndex + 1) % images.length;
+      
+      // Show next image
+      images[currentSlideIndex].classList.add('active');
+      
+      // Update counter
+      updateSlideshowCounter();
+    }
+
+    function updateSlideshowCounter() {
+      const counter = document.getElementById('slideshowCounter');
+      counter.textContent = `${currentSlideIndex + 1} / ${slideshowImages.length}`;
+    }
+
+    // Event listeners for user activity
+    function setupActivityListeners() {
+      const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+      
+      events.forEach(event => {
+        document.addEventListener(event, resetIdleTimer, true);
+      });
+
+      // Special handler for slideshow overlay clicks
+      document.getElementById('slideshowOverlay').addEventListener('click', hideSlideshow);
+      document.getElementById('slideshowOverlay').addEventListener('touchstart', hideSlideshow);
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeSlideshow();
+      setupActivityListeners();
+      resetIdleTimer();
+    });
+
+    // Also initialize when script loads (in case DOMContentLoaded already fired)
+    if (document.readyState === 'loading') {
+      // Document still loading, wait for DOMContentLoaded
+    } else {
+      // Document already loaded
+      initializeSlideshow();
+      setupActivityListeners();
+      resetIdleTimer();
+    }
   </script>
 
   <div class="chat-widget">
@@ -1526,6 +1754,14 @@
         </button>
         </p>
       </div>
+    </div>
+  </div>
+
+  <!-- Slideshow Overlay -->
+  <div class="slideshow-overlay" id="slideshowOverlay">
+    <div class="slideshow-container" id="slideshowContainer">
+      <div class="slideshow-exit-hint">Touch anywhere to return to the quiz</div>
+      <div class="slideshow-counter" id="slideshowCounter">1 / 1</div>
     </div>
   </div>
 </body>
