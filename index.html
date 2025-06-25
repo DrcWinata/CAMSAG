@@ -862,7 +862,7 @@
       font-size: 12px;
     }
 
-    /* Slideshow Styles */
+    /* Video Overlay Styles */
     .slideshow-overlay {
       position: fixed;
       top: 0;
@@ -884,19 +884,13 @@
       overflow: hidden;
     }
 
-    .slideshow-image {
+    .slideshow-video {
       width: 100%;
       height: 100%;
       object-fit: contain;
       position: absolute;
       top: 0;
       left: 0;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    .slideshow-image.active {
-      opacity: 1;
     }
 
     .slideshow-counter {
@@ -1407,34 +1401,6 @@
         </div>
       `;
       
-      // Add certificate for high scores
-      // if (score >= questions.length * 0.8) {
-      //   const today = new Date();
-      //   const formattedDate = today.toLocaleDateString('en-US', { 
-      //     year: 'numeric', 
-      //     month: 'long', 
-      //     day: 'numeric' 
-      //   });
-        
-      //   html += `
-      //     <div class="certificate" id="certificate">
-      //       <div class="certificate-header">
-      //         <h3 class="certificate-title">Certificate of Achievement</h3>
-      //         <p class="certificate-subtitle">Cyber Safety Awareness</p>
-      //       </div>
-      //       <div class="certificate-body">
-      //         <p class="certificate-name">Congratulations!</p>
-      //         <p class="certificate-text">This certifies that you have successfully completed the Cyber Safety Quiz with a score of ${score}/${questions.length} (${Math.round((score / questions.length) * 100)}%).</p>
-      //         <p class="certificate-text">You have demonstrated excellent knowledge of cyber security best practices including phishing detection, password security, and online safety.</p>
-      //       </div>
-      //       <div class="certificate-footer">
-      //         <div class="certificate-date">${formattedDate}</div>
-      //         <div class="certificate-signature">Cyber Safety Team</div>
-      //       </div>
-      //     </div>
-      //   `;
-      // }
-      
       container.innerHTML = html;
       container.style.display = 'block';
       
@@ -1561,145 +1527,72 @@
       }
     });
 
-    // Slideshow functionality
+    // Video functionality
     let idleTimer;
-    let slideshowTimer;
-    let currentSlideIndex = 0;
-    let slideshowImages = [];
-    let isSlideShowActive = false;
+    let isVideoActive = false;
     const IDLE_TIME = 10000; // 10 seconds
-    const SLIDE_DURATION = 3000; // 3 seconds per slide
-
-    // Initialize slideshow images
-    function initializeSlideshow() {
-      // You can add more images to this array
-      slideshowImages = [
-        'slideshow/gif.gif',
-        'slideshow/2.jpg',
-        'slideshow/3.jpg',
-        'slideshow/4.jpg',
-        'slideshow/5.jpg',
-        'slideshow/6.jpg',
-      ];
-      
-      // Filter out images that don't exist (optional)
-      // This prevents broken image errors
-      checkImagesExist();
-    }
-
-    function checkImagesExist() {
-      const validImages = [];
-      let checkedImages = 0;
-      
-      if (slideshowImages.length === 0) {
-        // Fallback: use a default image or create a simple slideshow
-        slideshowImages = ['slideshow/gif.gif'];
-        return;
-      }
-
-      slideshowImages.forEach((imageSrc, index) => {
-        const img = new Image();
-        img.onload = function() {
-          validImages.push(imageSrc);
-          checkedImages++;
-          if (checkedImages === slideshowImages.length) {
-            slideshowImages = validImages.length > 0 ? validImages : ['slideshow/gif.gif'];
-          }
-        };
-        img.onerror = function() {
-          checkedImages++;
-          if (checkedImages === slideshowImages.length) {
-            slideshowImages = validImages.length > 0 ? validImages : ['slideshow/gif.gif'];
-          }
-        };
-        img.src = imageSrc;
-      });
-    }
+    const videoSrc = 'slideshow/gif.webm';
 
     function resetIdleTimer() {
       clearTimeout(idleTimer);
-      if (isSlideShowActive) {
-        hideSlideshow();
+      if (isVideoActive) {
+        hideVideo();
       }
       
       idleTimer = setTimeout(() => {
-        showSlideshow();
+        showVideo();
       }, IDLE_TIME);
     }
 
-    function showSlideshow() {
-      if (isSlideShowActive) return;
+    function showVideo() {
+      if (isVideoActive) return;
       
-      isSlideShowActive = true;
-      currentSlideIndex = 0;
+      isVideoActive = true;
       
       const overlay = document.getElementById('slideshowOverlay');
       const container = document.getElementById('slideshowContainer');
       
-      // Clear existing images
-      const existingImages = container.querySelectorAll('.slideshow-image');
-      existingImages.forEach(img => img.remove());
+      // Clear existing content
+      const existingContent = container.querySelectorAll('.slideshow-video');
+      existingContent.forEach(content => content.remove());
       
-      // Create image elements
-      slideshowImages.forEach((imageSrc, index) => {
-        const img = document.createElement('img');
-        img.src = imageSrc;
-        img.className = 'slideshow-image';
-        img.alt = `Slideshow image ${index + 1}`;
-        if (index === 0) {
-          img.classList.add('active');
-        }
-        container.appendChild(img);
-      });
+      // Create video element
+      const video = document.createElement('video');
+      video.src = videoSrc;
+      video.className = 'slideshow-video';
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true; // Required for autoplay in most browsers
+      video.controls = false;
+      container.appendChild(video);
       
       // Show overlay
       overlay.style.display = 'flex';
       
       // Update counter
-      updateSlideshowCounter();
-      
-      // Start slideshow timer
-      startSlideshowRotation();
+      updateVideoCounter();
     }
 
-    function hideSlideshow() {
-      if (!isSlideShowActive) return;
+    function hideVideo() {
+      if (!isVideoActive) return;
       
-      isSlideShowActive = false;
-      clearInterval(slideshowTimer);
+      isVideoActive = false;
       
       const overlay = document.getElementById('slideshowOverlay');
+      const video = document.querySelector('.slideshow-video');
+      
+      if (video) {
+        video.pause();
+      }
+      
       overlay.style.display = 'none';
       
       resetIdleTimer();
     }
 
-    function startSlideshowRotation() {
-      slideshowTimer = setInterval(() => {
-        nextSlide();
-      }, SLIDE_DURATION);
-    }
-
-    function nextSlide() {
-      const images = document.querySelectorAll('.slideshow-image');
-      if (images.length <= 1) return;
-      
-      // Hide current image
-      images[currentSlideIndex].classList.remove('active');
-      
-      // Move to next image
-      currentSlideIndex = (currentSlideIndex + 1) % images.length;
-      
-      // Show next image
-      images[currentSlideIndex].classList.add('active');
-      
-      // Update counter
-      updateSlideshowCounter();
-    }
-
-    function updateSlideshowCounter() {
+    function updateVideoCounter() {
       const counter = document.getElementById('slideshowCounter');
-      counter.textContent = `${currentSlideIndex + 1} / ${slideshowImages.length}`;
+      counter.textContent = 'Playing Video';
     }
 
     // Event listeners for user activity
@@ -1710,14 +1603,13 @@
         document.addEventListener(event, resetIdleTimer, true);
       });
 
-      // Special handler for slideshow overlay clicks
-      document.getElementById('slideshowOverlay').addEventListener('click', hideSlideshow);
-      document.getElementById('slideshowOverlay').addEventListener('touchstart', hideSlideshow);
+      // Special handler for video overlay clicks
+      document.getElementById('slideshowOverlay').addEventListener('click', hideVideo);
+      document.getElementById('slideshowOverlay').addEventListener('touchstart', hideVideo);
     }
 
     // Initialize everything when page loads
     document.addEventListener('DOMContentLoaded', function() {
-      initializeSlideshow();
       setupActivityListeners();
       resetIdleTimer();
     });
@@ -1727,7 +1619,6 @@
       // Document still loading, wait for DOMContentLoaded
     } else {
       // Document already loaded
-      initializeSlideshow();
       setupActivityListeners();
       resetIdleTimer();
     }
@@ -1757,11 +1648,11 @@
     </div>
   </div>
 
-  <!-- Slideshow Overlay -->
+  <!-- Video Overlay -->
   <div class="slideshow-overlay" id="slideshowOverlay">
     <div class="slideshow-container" id="slideshowContainer">
       <div class="slideshow-exit-hint">Touch anywhere to return to the quiz</div>
-      <div class="slideshow-counter" id="slideshowCounter">1 / 1</div>
+      <div class="slideshow-counter" id="slideshowCounter">Playing Video</div>
     </div>
   </div>
 </body>
