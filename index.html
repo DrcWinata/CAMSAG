@@ -367,13 +367,13 @@
     }
 
     .startVA-btn {
-      margin-top: 14px;
+      margin-top: 10px;
       background: var(--bg-gradient);
       color: white;
       box-shadow: var(--shadow-md);
-      padding: 10px 16px;
-      font-size: 0.8rem;
-      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      border-radius: 6px;
       font-weight: 500;
       border: none;
       cursor: pointer;
@@ -382,26 +382,26 @@
 
     .startVA-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
     }
 
     .dropdownVA-toggle {
       background: var(--primary);
       color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
       border: none;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 500;
-      margin: 4px 2px;
+      margin: 3px 2px;
     }
 
     .dropdownVA-toggle:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+      box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
     }
     
     .start-btn {
@@ -775,8 +775,8 @@
     /* Enhanced Virtual Assistant Styles */
     .chat-widget {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
+      right: 20px;
       font-family: 'Poppins', sans-serif;
       z-index: 1000;
     }
@@ -786,10 +786,10 @@
       align-items: center;
       background: linear-gradient(135deg, #007bff 0%, #66b2ff 100%);
       color: white;
-      padding: 12px 20px;
-      border-radius: 50px;
+      padding: 8px 16px;
+      border-radius: 40px;
       cursor: pointer;
-      box-shadow: 0 8px 32px rgba(0, 123, 255, 0.3);
+      box-shadow: 0 6px 24px rgba(0, 123, 255, 0.3);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border: 2px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
@@ -810,23 +810,23 @@
     }
 
     .chat-toggle:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(0, 123, 255, 0.4);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 9px 32px rgba(0, 123, 255, 0.4);
     }
 
     .chat-toggle:active {
-      transform: translateY(-2px) scale(1.01);
+      transform: translateY(-1px) scale(1.01);
     }
 
     .avatar {
-      width: 45px;
-      height: 45px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.8);
-      margin-right: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      margin-right: 10px;
       object-fit: cover;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     }
 
     .chat-toggle:hover .avatar {
@@ -835,18 +835,18 @@
     }
     
     .chat-label {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
     }
 
     .chat-label h5 {
       margin: 0;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
       background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
       -webkit-background-clip: text;
@@ -858,14 +858,14 @@
     .chat-box {
       display: none;
       position: absolute;
-      bottom: 80px;
+      bottom: 65px;
       right: 0;
-      width: 320px;
+      width: 280px;
       max-width: 90vw;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.3);
       animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -885,7 +885,7 @@
     .chat-header {
       background: linear-gradient(135deg, #007bff 0%, #66b2ff 100%);
       color: white;
-      padding: 16px 20px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -894,7 +894,7 @@
 
     .chat-header h5 {
       margin: 0;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
       -webkit-background-clip: text;
@@ -907,10 +907,10 @@
       background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -925,19 +925,19 @@
     }
     
     .chat-body {
-      padding: 20px;
+      padding: 16px;
       color: #2c3e50;
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 12px;
+      line-height: 1.5;
       background: linear-gradient(135deg, rgba(247, 250, 252, 0.8) 0%, rgba(237, 242, 247, 0.8) 100%);
-      min-height: 200px;
+      min-height: 160px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
     .chat-body p {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       color: #34495e;
       font-weight: 400;
     }
@@ -991,37 +991,37 @@
       }
 
       .chat-widget {
-        bottom: 16px;
-        right: 16px;
+        bottom: 14px;
+        right: 14px;
       }
 
       .chat-toggle {
-        padding: 10px 16px;
-        border-radius: 40px;
+        padding: 6px 12px;
+        border-radius: 32px;
       }
 
       .avatar {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
       }
 
       .chat-label {
-        font-size: 12px;
-      }
-
-      .chat-label h5 {
         font-size: 11px;
       }
 
+      .chat-label h5 {
+        font-size: 9px;
+      }
+
       .chat-box {
-        width: 280px;
-        bottom: 70px;
+        width: 250px;
+        bottom: 60px;
       }
 
       .chat-body {
-        padding: 16px;
-        font-size: 13px;
+        padding: 12px;
+        font-size: 11px;
       }
       
       h1 {
@@ -1065,8 +1065,8 @@
       }
 
       .chat-box {
-        width: calc(100vw - 32px);
-        right: -12px;
+        width: calc(100vw - 28px);
+        right: -10px;
       }
     }
 
