@@ -36,11 +36,20 @@
       background: linear-gradient(135deg, #f0f4ff 0%, #e0eafc 100%);
       margin: 0;
       padding: 16px;
+      min-height: 100vh;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .main-content {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      color: var(--dark);
+      width: 100%;
     }
     
     .container {
@@ -1023,6 +1032,11 @@
         padding: 12px;
         font-size: 11px;
       }
+
+      footer {
+        font-size: 11px !important;
+        padding: 12px !important;
+      }
       
       h1 {
         font-size: 1.6rem;
@@ -1067,6 +1081,11 @@
       .chat-box {
         width: calc(100vw - 28px);
         right: -10px;
+      }
+
+      footer {
+        font-size: 10px !important;
+        padding: 10px !important;
       }
     }
 
@@ -1131,44 +1150,46 @@
   </style>
 </head>
 <body>
-  <div class="container animate-fadeIn" id="start-screen">
-    <h1>CAMSAG: Cyber And Mobile Safety Awareness Gauge</h1>
-    <img src="img/CAMSAGBanner.png" alt="Intro" class="question-image">
-    <h1>
-      Do you know what is Safe and Unsafe?
-    <br>
-      Do you know when you're being phished?
-    </h1>
-    <p>Gauge your knowledge level of Cyber and Mobile Safety!</p>
-    <button class="btn start-btn" onclick="startQuiz()">
-      <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
-    </button>
-  </div>
- 
-  <div class="container" id="quiz-container" style="display:none;">
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    
-    <div class="question animate-fadeIn" id="question"></div>
-    <img id="question-image" class="question-image animate-fadeIn" style="display:none;">
-    <div class="answers" id="answers"></div>
-    
-    <div class="user-progress">
-      <span id="question-counter">Question 1 of 6</span>
-      <!-- <span id="time-counter">Time: 00:00</span> -->
-    </div>
-    
-    <div class="feedback" id="feedback"></div>
-    
-    <div class="button-container">
-      <button class="btn show-feedback" id="show-feedback" onclick="showFeedback()">
-        <i class="fas fa-lightbulb icon"></i>Show explanation
+  <div class="main-content">
+    <div class="container animate-fadeIn" id="start-screen">
+      <h1>CAMSAG: Cyber And Mobile Safety Awareness Gauge</h1>
+      <img src="img/CAMSAGBanner.png" alt="Intro" class="question-image">
+      <h1>
+        Do you know what is Safe and Unsafe?
+      <br>
+        Do you know when you're being phished?
+      </h1>
+      <p>Gauge your knowledge level of Cyber and Mobile Safety!</p>
+      <button class="btn start-btn" onclick="startQuiz()">
+        <i class="fas fa-play icon" style="margin-right: 5px;"></i>Start Gauging
       </button>
+    </div>
+   
+    <div class="container" id="quiz-container" style="display:none;">
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
       
-      <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">
-        <i class="fas fa-arrow-right icon" style="margin-right: 5px;"></i>Next Question
-      </button>
+      <div class="question animate-fadeIn" id="question"></div>
+      <img id="question-image" class="question-image animate-fadeIn" style="display:none;">
+      <div class="answers" id="answers"></div>
+      
+      <div class="user-progress">
+        <span id="question-counter">Question 1 of 6</span>
+        <!-- <span id="time-counter">Time: 00:00</span> -->
+      </div>
+      
+      <div class="feedback" id="feedback"></div>
+      
+      <div class="button-container">
+        <button class="btn show-feedback" id="show-feedback" onclick="showFeedback()">
+          <i class="fas fa-lightbulb icon"></i>Show explanation
+        </button>
+        
+        <button class="btn next-btn" id="next-btn" onclick="nextQuestion()">
+          <i class="fas fa-arrow-right icon" style="margin-right: 5px;"></i>Next Question
+        </button>
+      </div>
     </div>
   </div>
  
@@ -1863,5 +1884,10 @@
       <div class="slideshow-counter" id="slideshowCounter">Playing Video</div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 16px; font-size: 16px; color: #6c757d; background: transparent; width: 100%; margin-top: auto;">
+    ©2025 ITEL Learning Systems (S) Pte Ltd. UEN/CPE Registration No: 200106514H. All rights reserved.
+  </footer>
 </body>
 </html>
