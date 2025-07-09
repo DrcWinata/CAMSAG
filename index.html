@@ -4,6 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CAMSAG</title>
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXFEEF9WBJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DXFEEF9WBJ', {
+      // Enhanced measurement settings
+      send_page_view: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+
+    // Track quiz start
+    function trackQuizStart() {
+      gtag('event', 'quiz_started', {
+        event_category: 'CAMSAG_Quiz',
+        event_label: 'Quiz_Started',
+        quiz_name: 'CAMSAG_Cyber_Safety'
+      });
+    }
+
+    // Track question progression 
+    function trackQuestionProgress(questionNumber, totalQuestions) {
+      gtag('event', 'quiz_progress', {
+        event_category: 'CAMSAG_Quiz',
+        event_label: `Question_${questionNumber}_of_${totalQuestions}`,
+        question_number: questionNumber,
+        progress_percentage: Math.round((questionNumber / totalQuestions) * 100)
+      });
+    }
+
+    // Track individual answers
+    function trackAnswer(questionNumber, questionText, userAnswer, correctAnswer, isCorrect) {
+      gtag('event', 'question_answered', {
+        event_category: 'CAMSAG_Quiz',
+        event_label: `Q${questionNumber}_${isCorrect ? 'Correct' : 'Wrong'}`,
+        question_number: questionNumber,
+        question_text: questionText.substring(0, 100), // First 100 chars
+        user_answer: userAnswer,
+        correct_answer: correctAnswer,
+        is_correct: isCorrect
+      });
+    }
+
+    // Track quiz completion
+    function trackQuizCompletion(score, totalQuestions, completionTime, percentage) {
+      gtag('event', 'quiz_completed', {
+        event_category: 'CAMSAG_Quiz',
+        event_label: `Completed_Score_${score}_of_${totalQuestions}`,
+        quiz_name: 'CAMSAG_Cyber_Safety',
+        score: score,
+        total_questions: totalQuestions,
+        completion_time_seconds: completionTime,
+        percentage_score: percentage,
+        performance_level: percentage >= 80 ? 'Excellent' : percentage >= 60 ? 'Good' : 'Needs_Improvement'
+      });
+    }
+
+    // Track quiz abandonment (when user leaves without finishing)
+    function trackQuizAbandonment(currentQuestion, totalQuestions) {
+      gtag('event', 'quiz_abandoned', {
+        event_category: 'CAMSAG_Quiz',
+        event_label: `Abandoned_at_Q${currentQuestion}`,
+        abandoned_at_question: currentQuestion,
+        completion_percentage: Math.round((currentQuestion / totalQuestions) * 100)
+      });
+    }
+  </script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -18,11 +88,11 @@
       --primary: #007bff;
       --primary-dark: #0069d9;
       --primary-light: #66b2ff;
-      --secondary: #6c757d; /* neutral grayish tone to pair with blue */
-      --danger: #dc3545;    /* bootstrap-style red */
-      --dark: #343a40;      /* deep neutral for text/background */
-      --light: #f8f9fa;     /* very light gray, almost white */
-      --gray: #adb5bd;      /* neutral mid-gray */
+      --secondary: #6c757d;
+      --danger: #dc3545;
+      --dark: #343a40;
+      --light: #f8f9fa;
+      --gray: #adb5bd;
       --bg-gradient: linear-gradient(135deg, #007bff 0%, #66b2ff 100%);
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -30,7 +100,6 @@
       --animation-duration: 0.4s;
     }
 
-    
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #f0f4ff 0%, #e0eafc 100%);
@@ -208,7 +277,7 @@
     .answers button span {
       position: relative;
       z-index: 1;
-      padding-right: 24px; /* Space for checkmark */
+      padding-right: 24px;
     }
     
     @keyframes correctAnswer {
@@ -508,22 +577,22 @@
     .circle-progress {
       fill: none;
       stroke-width: 20px;
-      stroke-dasharray: 503; /* 2 * PI * 80 (circle radius) */
+      stroke-dasharray: 503;
       stroke-dashoffset: 503;
       stroke-linecap: round;
       transition: stroke-dashoffset 1s ease-in-out;
     }
     
     .excellent-score {
-      stroke: #10b981; /* Green for high scores */
+      stroke: #10b981;
     }
     
     .good-score {
-      stroke: #f59e0b; /* Amber for medium scores */
+      stroke: #f59e0b;
     }
     
     .needs-improvement-score {
-      stroke: #ef4444; /* Red for low scores */
+      stroke: #ef4444;
     }
     
     .score-details {
@@ -587,7 +656,6 @@
       background-color: var(--primary);
     }
     
-    /* Question transition animations */
     @keyframes slideInRight {
       from { transform: translateX(50px); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
@@ -606,7 +674,6 @@
       animation: slideOutLeft 0.3s forwards;
     }
     
-    /* Circle pulse animation for active question */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -617,7 +684,6 @@
       animation: pulse 2s infinite;
     }
     
-    /* Reward animations */
     @keyframes reward {
       0% { transform: scale(0); opacity: 0; }
       70% { transform: scale(1.2); opacity: 1; }
@@ -625,7 +691,7 @@
     }
     
     .reward-icon {
-      display: none; /* Hidden completely */
+      display: none;
     }
     
     .result-summary {
@@ -672,7 +738,6 @@
       margin-top: 4px;
     }
     
-    /* Tooltip styles */
     .tooltip {
       position: relative;
       display: inline-block;
@@ -714,7 +779,6 @@
       opacity: 1;
     }
     
-    /* CSS for Detailed Answers */
     .answer-details-container {
       margin-top: 30px;
     }
@@ -781,7 +845,6 @@
       display: none;
     }
 
-    /* Enhanced Virtual Assistant Styles */
     .chat-widget {
       position: fixed;
       bottom: 20px;
@@ -955,7 +1018,6 @@
       margin-bottom: 0;
     }
 
-    /* Enhanced button styling within chat */
     .chat-body .btnVA,
     .chat-body .startVA-btn,
     .chat-body .dropdownVA-toggle {
@@ -988,7 +1050,6 @@
       left: 100%;
     }
 
-    /* Responsive adjustments */
     @media screen and (max-width: 600px) {
       body {
         padding: 12px;
@@ -1089,7 +1150,6 @@
       }
     }
 
-    /* Video Overlay Styles */
     .slideshow-overlay {
       position: fixed;
       top: 0;
@@ -1146,7 +1206,6 @@
       font-family: 'Poppins', sans-serif;
       animation: pulse 2s infinite;
     }
-    
   </style>
 </head>
 <body>
@@ -1175,8 +1234,7 @@
       <div class="answers" id="answers"></div>
       
       <div class="user-progress">
-        <span id="question-counter">Question 1 of 6</span>
-        <!-- <span id="time-counter">Time: 00:00</span> -->
+        <span id="question-counter">Question 1 of 10</span>
       </div>
       
       <div class="feedback" id="feedback"></div>
@@ -1290,16 +1348,23 @@
     let currentQuestion = 0;
     let selectedAnswer = null;
     let score = 0;
-    // let startTime;
+    let startTime;
     let timerInterval;
     let correctAnswerStreak = 0;
     let wrongAnswers = [];
     
-    // Check if the user is on a mobile device
     const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+    // Track when user leaves page (potential abandonment)
+    window.addEventListener('beforeunload', function() {
+      if (currentQuestion > 0 && currentQuestion < questions.length) {
+        trackQuizAbandonment(currentQuestion + 1, questions.length);
+      }
+    });
  
     function startQuiz() {
-     
+      // Track quiz start
+      trackQuizStart();
       
       document.getElementById("start-screen").style.display = "none";
       const quizContainer = document.getElementById("quiz-container");
@@ -1318,15 +1383,15 @@
     
     function updateTimer() {
       const now = new Date();
-      const timeDiff = Math.floor((now - startTime) / 1000); // in seconds
+      const timeDiff = Math.floor((now - startTime) / 1000);
       const minutes = Math.floor(timeDiff / 60).toString().padStart(2, '0');
       const seconds = (timeDiff % 60).toString().padStart(2, '0');
-      document.getElementById("time-counter").textContent = `Time: ${minutes}:${seconds}`;
+      // Note: Commented out time display but keeping timer for analytics
     }
     
     function stopTimer() {
       clearInterval(timerInterval);
-      return Math.floor((new Date() - startTime) / 1000); // return total seconds
+      return Math.floor((new Date() - startTime) / 1000);
     }
     
     function updateProgressBar() {
@@ -1342,14 +1407,15 @@
     function showQuestion() {
       const q = questions[currentQuestion];
 
+      // Track question progression
+      trackQuestionProgress(currentQuestion + 1, questions.length);
       
-      // NEW: update avatar widget based on question
       updateChatWidgetForQuestion(q);
 
       const questionEl = document.getElementById("question");
       questionEl.textContent = q.text;
       questionEl.classList.remove("animate-fadeIn");
-      void questionEl.offsetWidth; // Force reflow
+      void questionEl.offsetWidth;
       questionEl.classList.add("animate-fadeIn");
       
       const imageEl = document.getElementById("question-image");
@@ -1358,7 +1424,7 @@
         imageEl.style.display = "block";
         imageEl.alt = "Question image for: " + q.text;
         imageEl.classList.remove("animate-fadeIn");
-        void imageEl.offsetWidth; // Force reflow
+        void imageEl.offsetWidth;
         imageEl.classList.add("animate-fadeIn");
       } else {
         imageEl.style.display = "none";
@@ -1384,7 +1450,6 @@
       document.getElementById("show-feedback").style.display = "none";
       document.getElementById("next-btn").style.display = "none";
       
-      // Scroll to top of question on mobile
       if (isMobile) {
         window.scrollTo(0, 0);
       }
@@ -1396,9 +1461,18 @@
       selectedAnswer = index;
       questions[currentQuestion].userAnswer = index;
       const correct = questions[currentQuestion].correct;
+      const isCorrect = index === correct;
       
-      // Update score and streak
-      if (index === correct) {
+      // Track this answer
+      trackAnswer(
+        currentQuestion + 1, 
+        questions[currentQuestion].text, 
+        questions[currentQuestion].options[index], 
+        questions[currentQuestion].options[correct], 
+        isCorrect
+      );
+      
+      if (isCorrect) {
         score++;
         correctAnswerStreak++;
       } else {
@@ -1406,7 +1480,6 @@
         wrongAnswers.push(currentQuestion);
       }
     
-      // Mark buttons with appropriate classes
       const buttons = document.querySelectorAll(".answers button");
       buttons.forEach((b, i) => {
         b.classList.remove("selected", "correct", "incorrect", "correct-answer");
@@ -1429,7 +1502,6 @@
         }
       });
     
-      // Set feedback message
       const feedback = document.getElementById("feedback");
       if (index === correct) {
         feedback.textContent = "✅ You're right!";
@@ -1456,14 +1528,11 @@
       feedback.textContent = q.explanation;
       feedback.style.display = "block";
       
-      // Trigger reflow before adding the show class for animation
       void feedback.offsetWidth;
       feedback.classList.add("show");
       
-      // Hide the show explanation button since it's already shown
       document.getElementById("show-feedback").style.display = "none";
       
-      // On mobile, scroll to the feedback
       if (isMobile) {
         feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
@@ -1495,7 +1564,6 @@
         
         document.body.appendChild(confetti);
         
-        // Remove confetti after animation
         setTimeout(() => {
           confetti.remove();
         }, 5000);
@@ -1503,9 +1571,13 @@
     }
     
     function showResults(totalTime) {
+      const percentage = Math.round((score / questions.length) * 100);
+      
+      // Track quiz completion with all the detailed data
+      trackQuizCompletion(score, questions.length, totalTime, percentage);
+      
       updateChatWidgetSummary()
       const quizContainer = document.getElementById("quiz-container");
-      const percentage = Math.round((score / questions.length) * 100);
       
       let resultMessage, resultIcon, scoreClass;
       
@@ -1524,12 +1596,10 @@
         scoreClass = "needs-improvement-score";
       }
       
-      // Format time
       const minutes = Math.floor(totalTime / 60);
       const seconds = totalTime % 60;
       const timeFormatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
       
-      // Calculate average time per question
       const avgTimePerQuestion = Math.round(totalTime / questions.length);
       
       quizContainer.innerHTML = `
@@ -1570,8 +1640,6 @@
           </div>
         </div>
 
-
-
         <p class="animate-fadeIn">You are now more aware of how to identify phishing attempts, create strong passwords, and practice good cyber security habits.</p>
         
         <button class="btn start-btn animate-fadeIn" onclick="location.reload()">
@@ -1579,20 +1647,16 @@
         </button>
       `;
       
-      // Animate the circle progress
       setTimeout(() => {
         const circle = document.getElementById('progress-circle');
         const dashoffset = 503 - (503 * percentage / 100);
         circle.style.strokeDashoffset = dashoffset;
         
-        // Animate the percentage counter
         animateCounter('percent-counter', percentage);
         
-        // Create performance breakdown
         createPerformanceBreakdown();
       }, 100);
       
-      // On mobile, scroll to the top of results
       if (isMobile) {
         window.scrollTo(0, 0);
       }
@@ -1602,7 +1666,7 @@
       const counter = document.getElementById(id);
       let currentValue = 0;
       const increment = targetValue > 50 ? 1 : 0.5;
-      const duration = 1500; // milliseconds
+      const duration = 1500;
       const steps = targetValue / increment;
       const stepTime = duration / steps;
       
@@ -1633,7 +1697,6 @@
       container.innerHTML = html;
       container.style.display = 'block';
       
-      // Add show class for animation after a slight delay
       setTimeout(() => {
         const feedback = container.querySelector('.feedback');
         feedback.classList.add('show');
@@ -1686,14 +1749,10 @@
       });
     }
 
-      // ----------------------------------------
     function toggleChat() {
       const chatBox = document.getElementById('chatBox');
-      // chatBox.style.display = chatBox.style.display === 'block' ? 'none' : 'block';
-
       if (!chatBox) return;
 
-      // Toggle only if manually clicked
       const isVisible = chatBox.style.display === 'block';
       chatBox.style.display = isVisible ? 'none' : 'block';
     }
@@ -1719,6 +1778,7 @@
     }
 
     function updateChatWidgetSummary(){
+        const chatBody = document.getElementById('chatBody');
         chatBody.innerHTML = `
         <p>You have now completed gauging
         <br><br>
@@ -1728,12 +1788,12 @@
               <i class="fas fa-chevron-down icon" style="margin-right: 2px;"></i> Show Performance Details
         </button>
         <br><br>
-        If you wish to redo the gaugin, click on the
+        If you wish to redo the gauging, click on the
         <br>
         <button class="btn startVA-btn">
           <i class="fas fa-redo icon" style="margin-right: 2px;"></i>Gauge Again
         </button>
-</p>`;
+        </p>`;
     }
     
     function getPerformanceInsights() {
@@ -1748,18 +1808,17 @@
       }
     }
     
-    // Handle resize events
     window.addEventListener('resize', function() {
       const isMobileNow = window.matchMedia("(max-width: 600px)").matches;
       if (isMobileNow !== isMobile) {
-        location.reload(); // Refresh to adjust layout if switching between mobile/desktop
+        location.reload();
       }
     });
 
     // Video functionality
     let idleTimer;
     let isVideoActive = false;
-    const IDLE_TIME = 50000; // 50 seconds
+    const IDLE_TIME = 50000;
     const videoSrc = 'slideshow/gif.webm';
 
     function resetIdleTimer() {
@@ -1781,24 +1840,20 @@
       const overlay = document.getElementById('slideshowOverlay');
       const container = document.getElementById('slideshowContainer');
       
-      // Clear existing content
       const existingContent = container.querySelectorAll('.slideshow-video');
       existingContent.forEach(content => content.remove());
       
-      // Create video element
       const video = document.createElement('video');
       video.src = videoSrc;
       video.className = 'slideshow-video';
       video.autoplay = true;
       video.loop = true;
-      video.muted = true; // Required for autoplay in most browsers
+      video.muted = true;
       video.controls = false;
       container.appendChild(video);
       
-      // Show overlay
       overlay.style.display = 'flex';
       
-      // Update counter
       updateVideoCounter();
     }
 
@@ -1824,7 +1879,6 @@
       counter.textContent = 'Playing Video';
     }
 
-    // Event listeners for user activity
     function setupActivityListeners() {
       const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
       
@@ -1832,22 +1886,17 @@
         document.addEventListener(event, resetIdleTimer, true);
       });
 
-      // Special handler for video overlay clicks
       document.getElementById('slideshowOverlay').addEventListener('click', hideVideo);
       document.getElementById('slideshowOverlay').addEventListener('touchstart', hideVideo);
     }
 
-    // Initialize everything when page loads
     document.addEventListener('DOMContentLoaded', function() {
       setupActivityListeners();
       resetIdleTimer();
     });
 
-    // Also initialize when script loads (in case DOMContentLoaded already fired)
     if (document.readyState === 'loading') {
-      // Document still loading, wait for DOMContentLoaded
     } else {
-      // Document already loaded
       setupActivityListeners();
       resetIdleTimer();
     }
@@ -1877,7 +1926,6 @@
     </div>
   </div>
 
-  <!-- Video Overlay -->
   <div class="slideshow-overlay" id="slideshowOverlay">
     <div class="slideshow-container" id="slideshowContainer">
       <div class="slideshow-exit-hint">Touch anywhere to return to the quiz</div>
@@ -1885,7 +1933,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer style="text-align: center; padding: 16px; font-size: 16px; color: #6c757d; background: transparent; width: 100%; margin-top: auto;">
     ©2025 ITEL Learning Systems (S) Pte Ltd. UEN/CPE Registration No: 200106514H. All rights reserved.
   </footer>
