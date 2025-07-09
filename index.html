@@ -1576,6 +1576,9 @@
       // Track quiz completion with all the detailed data
       trackQuizCompletion(score, questions.length, totalTime, percentage);
       
+      // Send completion data to Google Sheets (backup)
+      sendToGoogleSheets(score, questions.length, percentage);
+      
       updateChatWidgetSummary()
       const quizContainer = document.getElementById("quiz-container");
       
@@ -1894,6 +1897,50 @@
       setupActivityListeners();
       resetIdleTimer();
     });
+
+    
+    // Function to send completion data to Google Sheets
+    function sendToGoogleSheets(score, totalQuestions, percentage) {
+      // Your actual Google Apps Script URL
+      const scriptURL = 'https://script.google.com/macros/s/AKfycby8QJl5dcYoq3ozxMk5sN9JaRkV7GYODSiA5gcAR7bvb3dL66i6DR-PnFUW4bdnvdpdIw/exec';
+      
+      // Get Singapore time
+      const now = new Date();
+      const singaporeTime = new Intl.DateTimeFormat('en-SG', {
+        timeZone: 'Asia/Singapore',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).format(now);
+      
+      const data = {
+        timestamp: singaporeTime,
+        score: score,
+        totalQuestions: totalQuestions,
+        percentage: percentage
+      };
+      
+      console.log('Sending to Google Sheets:', data);
+      
+      // Send to Google Sheets (won't break quiz if it fails)
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors', // This helps with CORS issues
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then(response => {
+        console.log('Google Sheets response received');
+        // Note: can't read response with no-cors mode, but that's okay
+      }).catch(error => {
+        console.log('Sheets logging failed (quiz continues normally):', error);
+      });
+    }
 
     if (document.readyState === 'loading') {
     } else {
