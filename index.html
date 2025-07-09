@@ -1355,6 +1355,47 @@
     
     const isMobile = window.matchMedia("(max-width: 600px)").matches;
 
+    // Simple completion tracking
+    function getSingaporeTime() {
+      const now = new Date();
+      return new Intl.DateTimeFormat('en-SG', {
+        timeZone: 'Asia/Singapore',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).format(now);
+    }
+
+    function sendCompletionToSheets(score, totalQuestions, percentage) {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyXMPUbVNwlRQOw8a-6NU-LhOg0dZS3oupB4HShyP0XESxqWe6uoQ_xkugxLgfSE2H4/exec';
+      
+      const data = {
+        timestamp: getSingaporeTime(),
+        score: score,
+        questionsAnswered: totalQuestions,
+        percentage: percentage
+      };
+      
+      console.log('Sending completion to Google Sheets:', data);
+      
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then(response => {
+        console.log('Google Sheets response received');
+      }).catch(error => {
+        console.log('Sheets logging failed:', error);
+      });
+    }
+
     // Track when user leaves page (potential abandonment)
     window.addEventListener('beforeunload', function() {
       if (currentQuestion > 0 && currentQuestion < questions.length) {
@@ -1363,7 +1404,7 @@
     });
  
     function startQuiz() {
-      // Track quiz start
+      // Track quiz start (Google Analytics only)
       trackQuizStart();
       
       document.getElementById("start-screen").style.display = "none";
@@ -1463,7 +1504,7 @@
       const correct = questions[currentQuestion].correct;
       const isCorrect = index === correct;
       
-      // Track this answer
+      // Track this answer (Google Analytics)
       trackAnswer(
         currentQuestion + 1, 
         questions[currentQuestion].text, 
@@ -1573,11 +1614,11 @@
     function showResults(totalTime) {
       const percentage = Math.round((score / questions.length) * 100);
       
-      // Track quiz completion with all the detailed data
+      // Track quiz completion (Google Analytics)
       trackQuizCompletion(score, questions.length, totalTime, percentage);
       
-      // Send completion data to Google Sheets (backup)
-      sendToGoogleSheets(score, questions.length, percentage);
+      // Send completion to Google Sheets
+      sendCompletionToSheets(score, questions.length, percentage);
       
       updateChatWidgetSummary()
       const quizContainer = document.getElementById("quiz-container");
@@ -1902,7 +1943,7 @@
     // Function to send completion data to Google Sheets
     function sendToGoogleSheets(score, totalQuestions, percentage) {
       // Your actual Google Apps Script URL
-      const scriptURL = 'https://script.google.com/macros/s/AKfycby8QJl5dcYoq3ozxMk5sN9JaRkV7GYODSiA5gcAR7bvb3dL66i6DR-PnFUW4bdnvdpdIw/exec';
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyXMPUbVNwlRQOw8a-6NU-LhOg0dZS3oupB4HShyP0XESxqWe6uoQ_xkugxLgfSE2H4/exec';
       
       // Get Singapore time
       const now = new Date();
