@@ -1862,14 +1862,11 @@
     // Video functionality
     let idleTimer;
     let isVideoActive = false;
-    const IDLE_TIME = 50000;
+    const IDLE_TIME = 120000;
     const videoSrc = 'slideshow/gif.webm';
 
     function resetIdleTimer() {
       clearTimeout(idleTimer);
-      if (isVideoActive) {
-        hideVideo();
-      }
       
       idleTimer = setTimeout(() => {
         showVideo();
@@ -1915,6 +1912,7 @@
       
       overlay.style.display = 'none';
       
+      // Reset the idle timer to start fresh countdown
       resetIdleTimer();
     }
 
@@ -1923,11 +1921,19 @@
       counter.textContent = 'Playing Video';
     }
 
+    function handleUserActivity() {
+      if (isVideoActive) {
+        hideVideo();
+      } else {
+        resetIdleTimer();
+      }
+    }
+
     function setupActivityListeners() {
       const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
       
       events.forEach(event => {
-        document.addEventListener(event, resetIdleTimer, true);
+        document.addEventListener(event, handleUserActivity, true);
       });
 
       document.getElementById('slideshowOverlay').addEventListener('click', hideVideo);
